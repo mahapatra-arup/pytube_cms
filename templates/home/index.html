@@ -1,0 +1,70 @@
+{% extends 'shared/layout.html' %}
+{% load static %}
+
+{% block content %}
+     <!-- SLIDER : begin -->
+     <!-- If you want to have single BG image for all slides,
+     just add style="background-image: url( 'url-to-your-image.jpg' );" to the following element
+     (and remove "style" attributes from all "slide" elements) -->
+     <div class="c-slider" data-autoplay="8">
+          <div class="slide-list">
+
+               <!-- SLIDE : begin -->
+               <div class="slide" style="background-image: url({% static 'assets/images/slide-01.jpg' %});">
+                    <div class="slide-inner">
+                         <!-- You can change vertical align of the content with the following classes valign-top | valign-middle | valign-bottom -->
+                         <div class="slide-content valign-bottom">
+
+                              <div class="row">
+                                   <div class="col-md-6 col-md-push-6">
+                                        <h2><a href="post-detail.html">TownPress Half Marathon Draws over 500 Runners</a></h2>
+                                        <h3>A half marathon is a road running event of 21.0975 kilometres (13.1094 mi). It is half the distance of a marathon and usually run on roads.</h3>
+                                   </div>
+                              </div>
+
+                         </div>
+                    </div>
+
+               </div>
+               <!-- SLIDE : end -->
+
+               <!-- SLIDE : begin -->
+               <div class="slide" style="background-image: url({% static 'assets/images/slide-02.jpg' %});">
+                    <div class="slide-inner">
+                         <div class="slide-content valign-bottom">
+
+                              <div class="row">
+                                   <div class="col-md-6">
+                                        <h2><a href="post-detail.html">Town Cinema to Screen Indie Movies for the Whole Summer</a></h2>
+                                        <h3>An independent film is a film production resulting in a feature film that is produced mostly or completely outside of the major film studio system.</h3>
+                                   </div>
+                              </div>
+
+                         </div>
+                    </div>
+
+               </div>
+               <!-- SLIDE : end -->
+
+               <!-- SLIDE : begin -->
+               <div class="slide" style="background-image: url({% static 'assets/images/slide-03.jpg' %});">
+                    <div class="slide-inner">
+                         <div class="slide-content valign-bottom">
+
+                              <div class="row">
+                                   <div class="col-md-6 col-md-push-6">
+                                        <h2><a href="post-detail.html">Travel Tips: America’s 20 Best National Parks</a></h2>
+                                        <h3>A national park is a park in use for conservation purposes. Often it is a reserve of natural, semi-natural, or developed land that a sovereign state declares or owns.</h3>
+                                   </div>
+                              </div>
+
+                         </div>
+                    </div>
+
+               </div>
+               <!-- SLIDE : end -->
+
+          </div>
+     </div>
+     <!-- SLIDER : end -->
+{% endblock  %}

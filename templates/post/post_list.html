@@ -1,0 +1,89 @@
+{% extends 'shared/layout.html' %}
+{% load paginate %}
+
+
+{% block content %}
+	<!-- POST LIST PAGE : begin -->
+    <div class="post-page post-list-page">
+		{% if ds_posts %}
+
+			{% paginate 1 ds_posts %}
+			{% for post in ds_posts %}
+						<!-- POST : begin -->
+										<article class="post">
+											<div class="post-inner c-content-box m-no-padding">
+
+												<!-- POST IMAGE : begin -->
+												<div class="post-image">
+													<a href="post-detail.html"><img src="{{post.get_image_url|default_if_none:'#'}}" alt=""></a>
+												</div>
+												<!-- POST IMAGE : end -->
+
+												<!-- POST CORE : begin -->
+												<div class="post-core">
+
+													<!-- POST TITLE : begin -->
+													<h2 class="post-title"><a href="post-detail.html">{{post.title}}</a></h2>
+													<!-- POST TITLE : end -->
+
+													<!-- POST CONTENT : begin -->
+													<div class="post-content">
+														<div class="post-content-inner">
+															<p> {{ post.content|safe|truncatewords_html:50 }}</p>
+														</div>
+													</div>
+													<!-- POST CONTENT : end -->
+
+												</div>
+												<!-- POST CORE : end -->
+
+												<!-- POST FOOTER : begin -->
+												<div class="post-footer">
+													<div class="post-footer-inner">
+
+														<!-- POST INFO : begin -->
+														<div class="post-info">
+															<i class="ico tp tp-clock2"></i>
+
+															<!-- POST DATE : begin -->
+															<span class="post-date">
+																{{ post.updated_on|date:"F d, Y" }} <a href="post-list.html">{{ blog.category }}</a>
+															</span>
+															<!-- POST DATE : end -->
+
+														</div>
+														<!-- POST INFO : end -->
+
+													</div>
+												</div>
+												<!-- POST FOOTER : end -->
+
+											</div>
+										</article>
+										<!-- POST : end -->             
+			{% endfor %} 
+
+		<!-- pagination  -->
+			<div class="c-pagination">
+			{% show_pageitems %}
+			</div>
+						<!--/ pagination -->
+		{% else %}
+			<h2 align="center">There are no posts are here !</h2>
+		{% endif %}
+
+	</div>
+{% endblock  %}
+
+
+   	<!-- POST LIST PAGE : end -->
+
+								<!-- PAGINATION : begin 
+								<div class="c-pagination">
+									<ul>
+										<li class="m-active"><a href="post-list.html">1</a></li>
+										<li><a href="post-list.html">2</a></li>
+										<li><a href="post-list.html">3</a></li>
+									</ul>
+								</div>
+								 PAGINATION : end -->

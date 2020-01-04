@@ -1,0 +1,26 @@
+{% load recurse %}
+
+<nav class="{{css_class}}">
+{% recurse menu.menu_set.all|dictsort:"lvl" with menu as menu %}
+        <ul>
+          {% loop %}
+            <li>
+              {% if menu.has_children %}
+			   <a href="#">{{ menu.title }}</a>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                  {% for child in menu.get_children %}
+                    {% if child.has_children %}
+                        {% include 'includes/nav_submenu.html' with menu=child %}
+                    {% else %}
+                      <li><a href="{{child.url}}">{{ child.title }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% else %}
+                  <a href="{{ menu.url }}">{{ menu.title }}</a>
+              {% endif %}
+            </li>
+          {% endloop %}
+        </ul>
+{% endrecurse %}
+</nav>
