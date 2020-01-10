@@ -1,0 +1,35 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+<!-- POST LIST PAGE : begin -->
+  <div class="post-page post-list-page table-responsive">
+    <table class="table table-sm table-striped table-bordered text-center">
+          <thead>
+            <tr>
+              <th>Sl.No.</th>
+              <th>Subject</th>
+              <th>Publisher Name</th>
+              <th>Publish Date</th>
+              <th>Action</th>
+            </tr>
+          <thead>  
+
+        <tbody>
+          {% if ds_posts %}
+              {% for post in ds_posts %}
+              <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.user }}</td>
+                    <td>{{ post.updated_on }}</td>
+                    <td> <a href="{{ post.get_document_url|default_if_none:'#' }}" target="_blank" class="btn btn-warning"><i class="fa fa-file-pdf-o"></i></a></td>
+                  
+                  </tr>
+              {% endfor %}
+          {% else %}
+          <tr><td colspan="5"><h2 align="center" class="fa fa-warning">There are no Notice are here !</h2></td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+  </div>
+{% endblock %}

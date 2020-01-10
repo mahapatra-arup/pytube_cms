@@ -15,10 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from . import views
+#from . import views
 from post.views import *
 
 
 urlpatterns = [
+    #list View
      path('',PostListView.as_view(),name='post_list'),
+     path('notice',NoticeListView.as_view(),name='notice_list'),
+     path('gallery',GalleryListView.as_view(),name='gallery_list'),
+
+    # Details View
+     path('gallery/<slug:gallery_slug>/', GalleryDetailView.as_view(), name='gallery_detail'),
+
+     #category/tags/archive
+    path('category/<slug:category_slug>/', SelectedCategoryView.as_view(), name='selected_category'),
+    path('tags/<slug:tag_slug>/', SelectedTagView.as_view(), name='selected_tag'),
+    path('<year>/<month>/', ArchiveView.as_view(), name='archive_posts'),
+    path('<slug:blog_slug>/', BlogPostView.as_view(), name='blog_post_view'),
 ]

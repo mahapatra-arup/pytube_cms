@@ -7,7 +7,7 @@ INSTALLED_APPS += [
      #3rd prty
     'simple_pagination',
     'tinymce',
-
+    
     #My app
     'organization',
     'post',
@@ -31,5 +31,8 @@ DATABASES = {
         'HOST':     'localhost'
     }
 }
+
+#blog sign
+BLOG_AUTHOR = "Arup Mahapatra || Pytube"
 
 

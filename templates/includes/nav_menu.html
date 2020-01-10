@@ -7,7 +7,7 @@
             <li>
               {% if menu.has_children %}
 			   <a href="#">{{ menu.title }}</a>
-                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                <ul>
                   {% for child in menu.get_children %}
                     {% if child.has_children %}
                         {% include 'includes/nav_submenu.html' with menu=child %}

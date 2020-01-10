@@ -104,10 +104,25 @@ class Tags(models.Model):
                 tempslug = tempslug + '-' + str(slugcount)
             except ObjectDoesNotExist:
                 return tempslug
+from django.utils.safestring import mark_safe
 
 
+#Gallery Images
+class Gal_Image(models.Model):
+    name = models.CharField(max_length=100, null=False)
+    photo = models.ImageField(upload_to='post/Gal_Image/%Y/%m/%d',null=True, blank=True)
 
+    class Meta:
+        db_table = "gal_image"
 
+    @property
+    def get_image_url(self):
+         if self.photo and hasattr(self.photo, 'url'):
+          return self.photo.url
+
+    def __str__(self):
+         return self.name
+         
 #Post----------------------->
 class Post(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -117,17 +132,20 @@ class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     content = HTMLField("content")
-
+    term=models.ForeignKey(Term,on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tags, related_name='rel_posts')
-    term=models.ForeignKey(Term,on_delete=models.CASCADE)
 
     meta_description = models.TextField(max_length=160, null=True, blank=True)
-    
     keywords = models.TextField(max_length=500, blank=True)
-    featured_image = models.ImageField(upload_to='post/uploads/%Y/%m/%d/', blank=True, null=True)
+
+    featured_image = models.ImageField(upload_to='post/images/%Y/%m/%d/', blank=True, null=True,help_text='Maximum file size allowed is 200kb')
+    document_file = models.FileField(upload_to='post/documents/%Y/%m/%d/', blank=True, null=True)
+    #For gallery
+    photos = models.ManyToManyField(Gal_Image, blank=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICE, default='Published')
-   
+    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
+
     class Meta:
         ordering = ['-updated_on']
 
@@ -147,11 +165,15 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    ###
+    ###get_image_url
     @property
     def get_image_url(self):
          if self.featured_image and hasattr(self.featured_image, 'url'):
           return self.featured_image.url
+    @property
+    def get_document_url(self):
+         if self.document_file and hasattr(self.document_file, 'url'):
+          return self.document_file.url      
 
 def create_slug(tempslug):
     slugcount = 0

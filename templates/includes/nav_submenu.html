@@ -2,9 +2,9 @@
 
   {% recurse menu.menu_set.all|dictsort:"lvl" with menu as menu %}
     {% loop %}
-      <li>
+      <li >
            <a tabindex="-1" href="#" >{{ menu.title }}</a>
-        <ul>
+        <ul >
         {% for submenu in menu.get_children %}
           {% if submenu.has_children %}
             {% include "includes/nav_submenu.html" with menu=submenu %}

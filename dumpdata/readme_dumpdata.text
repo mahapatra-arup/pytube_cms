@@ -1,0 +1,2 @@
+1. python manage.py dumpdata post.term > term.json
+2. manage.py loaddata term.json

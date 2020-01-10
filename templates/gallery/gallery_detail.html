@@ -1,0 +1,50 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+<!-- GALLERY DETAIL PAGE : begin -->
+        <div class="gallery-detail-page gallery-page">
+
+            <!-- GALLERY : begin -->
+            <div class="c-gallery">
+                <ul class="gallery-images m-layout-masonry m-3-columns">
+
+               {% if ds_posts_details %}
+                    {% for photos in ds_posts_details.photo.all %}
+                        <!-- GALLERY IMAGE : begin -->
+                        <li class="gallery-image">
+                            <a href="#" class="lightbox" title="{{photos.name}}">
+                                <img src="{{photos.get_image_url|default_if_none:'#'}}" alt="{{photos.name}}">
+                            </a>
+                        </li>
+                        <!-- GALLERY IMAGE : end -->
+                    {% endfor %}
+                {% else %}
+                    <h2 align="center" class="fa fa-warning">There are no Gallery are here !</h2>
+               {% endif %}
+
+                </ul>
+            </div>
+            <!-- GALLERY : end -->
+
+            <div class="c-content-box m-no-padding">
+
+                <!-- GALLERY FOOTER : begin -->
+                <div class="gallery-footer">
+                    <div class="gallery-footer-inner">
+
+                        <!-- GALLERY DATE : begin -->
+                        <div class="gallery-date">
+                            <i class="ico tp tp-clock2"></i>May 14, 2015 in
+                            <a href="gallery-list.html">Sights</a>
+                        </div>
+                        <!-- GALLERY DATE : end -->
+
+                    </div>
+                </div>
+                <!-- GALLERY FOOTER : end -->
+
+            </div>
+
+        </div>
+        <!-- GALLERY DETAIL PAGE : begin -->
+        {% endblock %}

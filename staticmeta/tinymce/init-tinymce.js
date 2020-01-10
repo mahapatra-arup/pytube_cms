@@ -133,10 +133,3 @@ tinymce.init({
         //autosave_restore_when_empty: false,
         //autosave_retention: "2m",
 });
-
-$(function() {
-
-    // append input control at start of form
-    $("<br /> <br />")
-        .prependTo("textarea");
-})(django.jQuery);

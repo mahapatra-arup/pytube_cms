@@ -1,0 +1,48 @@
+{% extends 'shared/layout.html' %}
+{% load paginate %}
+
+
+{% block content %}
+
+ {% if ds_posts %}
+     {% paginate 5 ds_posts %}
+   <!-- GALLERY LIST PAGE : begin -->
+        <div class="gallery-list-page gallery-page">
+            <div class="c-gallery">
+                <!-- You can change the number of columns by changing "m-3-columns" class
+                in the following element to m-2-columns | m-4-columns | m-5-columns : begin -->
+                <ul class="gallery-images m-layout-masonry m-3-columns">
+                   
+                        {% for post in ds_posts %}
+                            <!-- GALLERY IMAGE : begin -->
+                            <li class="gallery-image">
+                                <div class="gallery-image-inner">
+                                    <a href="{% url 'selected_category' category_slug=category.slug %}">
+                                        <img src="{{post.get_image_url|default_if_none:'#'}}" alt="{{post.title}}" class="img-thumbnail" style="width:100%;height:180px">
+                                        <h2 class="gallery-title">{{post.title}}</h2>
+                                     </a>
+                                </div>
+                            </li>
+                            <!-- GALLERY IMAGE : end -->
+                        {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+        <!-- GALLERY LIST PAGE : begin -->
+
+   
+            <!-- PAGINATION : begin -->
+            <hr/>
+            <div class="c-pagination">
+                {% show_pages %}
+                <br>
+                {% show_pageitems %}
+            </div>
+            <!-- PAGINATION : end -->
+
+        {% else %}
+            <h2 align="center" class="fa fa-warning">There are no Gallery are here !</h2>
+    {% endif %}
+       
+{% endblock  %}        
