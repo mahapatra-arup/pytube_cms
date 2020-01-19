@@ -30,12 +30,12 @@ class TermAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'description', 'is_active')
  
     #remove edit delete button
-    def has_add_permission(self, request):
-       return False
-    def has_change_permission(self, request, obj=None):
-        return False
-    def has_delete_permission(self, request, obj=None):
-        return False
+    # def has_add_permission(self, request):
+    #    return False
+    # def has_change_permission(self, request, obj=None):
+    #     return False
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -62,7 +62,8 @@ class Gal_ImageAdmin(admin.ModelAdmin):
 # Post---------------------------------------->
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin,ExportCsvMixin):
-    list_display = ('title','term', 'slug', 'user', 'category', 'status','featured_image_view',)
+    list_display = ('title','term', 'slug', 'user', 'category', 'status','featured_image_view','photos_count',)
+    list_filter =('title','term', 'slug', 'user', 'category', 'status')
     filter_horizontal = ("tags",)
     readonly_fields = ["featured_image_view",]
     actions = ["export_as_csv"]
@@ -78,6 +79,10 @@ class PostAdmin(admin.ModelAdmin,ExportCsvMixin):
         else:
             return mark_safe('')
 
+   #photos Count
+    def photos_count(self,obj):
+        return obj.photos.all().count()
+
 
 #Notice--------------------------------------->
 class  NoticeProxy(Post):
@@ -87,6 +92,7 @@ class  NoticeProxy(Post):
 @admin.register(NoticeProxy)
 class NoticeAdmin(admin.ModelAdmin):
     list_display = ('title',  'user', 'category', 'status','get_image_url')
+  
     filter_horizontal = ("tags",)
     
     #only select Notice

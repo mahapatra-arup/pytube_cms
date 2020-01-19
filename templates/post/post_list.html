@@ -72,8 +72,8 @@
 			</div>
 		<!-- pagination  -->
 		{% else %}
-			<h2 align="center">There are no posts are here !</h2>
-		{% endif %}
+			 <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no posts are here !</div>
+        {% endif %}
 
 	</div>
 {% endblock  %}
@@ -110,7 +110,7 @@
 									<a href="{% url 'archive_posts' year=archive|date:'Y' month=archive|date:'m' %}" class="col-md-3">
 										<div class="event-inner">
 											<div title="{{ archive|date:"F Y" }}" class="event-date">
-												<span class="event-month">{{ archive|date:"F" }}</span>
+												<span class="event-month">{{ archive|date:"M" }}</span>
 												<span class="event-day">{{ archive|date:"Y" }}</span>
 											</div>
 										</div>

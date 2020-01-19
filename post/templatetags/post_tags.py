@@ -10,7 +10,7 @@ register = template.Library()
 def category_posts(category):
     return Post.objects.filter(category=category).count()
 
-
+#archives
 @register.simple_tag(takes_context=True)
 def get_archives(context):
     archives = []
@@ -27,3 +27,5 @@ def get_archives(context):
     if len(archives) > 5:
         return archives[:5]
     return archives
+
+

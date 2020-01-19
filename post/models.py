@@ -126,7 +126,7 @@ class Gal_Image(models.Model):
 #Post----------------------->
 class Post(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True,help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -141,8 +141,10 @@ class Post(models.Model):
 
     featured_image = models.ImageField(upload_to='post/images/%Y/%m/%d/', blank=True, null=True,help_text='Maximum file size allowed is 200kb')
     document_file = models.FileField(upload_to='post/documents/%Y/%m/%d/', blank=True, null=True)
+    
     #For gallery
-    photos = models.ManyToManyField(Gal_Image, blank=True)
+    photos = models.ManyToManyField(Gal_Image, blank=True,related_name='rel_post_galimg')
+
     status = models.CharField(max_length=10, choices=STATUS_CHOICE, default='Published')
     parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
 
@@ -173,7 +175,12 @@ class Post(models.Model):
     @property
     def get_document_url(self):
          if self.document_file and hasattr(self.document_file, 'url'):
-          return self.document_file.url      
+          return self.document_file.url  
+   
+   
+
+        
+
 
 def create_slug(tempslug):
     slugcount = 0

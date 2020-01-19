@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 #settings
 from pytube.settings import base,development
-from .constant_fields import *
+from pytube.constant_fields import *
 
 #term means Post/notice/gallery/etc identifire
 def categories_tags_lists(term_value):
@@ -76,7 +76,7 @@ class NoticeListView(ListView):
 
 
 #<===================
-#Gallery Thumnail View==
+#Gallery list View==
 class GalleryListView(ListView):
     #custom
     term_value=CONST_GALLERY_TERM
@@ -103,42 +103,25 @@ class GalleryListView(ListView):
 class GalleryDetailView(DetailView):
     #Custom var
     name_of_slug="gallery_slug"
-    name_of_urlspath="gallery_detail"#this is available on urls.py -->path--->name
-    term_value=CONST_GALLERY_TERM 
+    # name_of_urlspath="gallery_detail"#this is available on urls.py -->path--->name
+    # term_value=CONST_GALLERY_TERM 
 
     #system var Fixed
     template_name = 'gallery/gallery_detail.html'
     model = Post
-    slug_url_kwarg = name_of_slug
-    context_object_name = "ds_posts_details"
+    slug_url_kwarg = name_of_slug 
+    context_object_name = "ds_posts_detail"
      #end
-    
-    def dispatch(self, request, *args, **kwargs):
-        self.object = Post.objects.filter(slug=kwargs.get(name_of_slug)).last()
-       
-        if not self.object:
-            post_slug = get_object_or_404(Post, slug=self.kwargs.get(name_of_slug))
-
-            if self.kwargs.get(name_of_slug) != post_slug.blog.slug:
-                return HttpResponseRedirect(reverse(name_of_urlspath, kwargs={name_of_slug: post_slug.slug}), status=301)
-        
-        return super(GalleryDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super(GalleryDetailView, self).get_context_data(*args, **kwargs)
-        user = self.object.user
-        author = user.first_name if user.first_name else user.username
-        related_posts = Post.objects.filter( status='Published',category=self.object.category,tags__in=self.object.tags.all()).exclude(id=self.object.id).distinct()[:3]
-   
         context.update({
-            "related_posts": related_posts,
-            "description": self.object.meta_description if self.object.meta_description else "",
-            "title": self.object.title,
-            "keywords": self.object.keywords,
-            "author": author,
-            "blog_title": development.BLOG_AUTHOR
+            "description": 'Gallery Details',
+            "title": 'Gallery Details',
+            "keywords": 'Gallery Details',
+            "author": development.BLOG_AUTHOR,
+            "page_title":'Gallery Details',
         })
-        context.update(categories_tags_lists(self.term_value))
         return context
 #===============>
 
@@ -148,6 +131,8 @@ class BlogPostView(DetailView):
     slug_url_kwarg = "blog_slug"
     context_object_name = "blog_name"
 
+
+    term_value=CONST_GALLERY_TERM 
     def dispatch(self, request, *args, **kwargs):
         self.object = Post.objects.filter(slug=kwargs.get("blog_slug")).last()
         if not self.object:
@@ -185,7 +170,7 @@ class BlogPostView(DetailView):
            # "short_url": self.get_mini_url(self.request),
             "blog_title": development.BLOG_AUTHOR
         })
-        context.update(categories_tags_lists())
+        context.update(categories_tags_lists(term_value))
         return context
 
 class SelectedCategoryView(ListView):

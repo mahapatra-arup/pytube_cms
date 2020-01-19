@@ -1,0 +1,34 @@
+
+{% comment %}# tag :: home-->templatetags-->home_tags-->load_event()  {% endcomment %}
+
+<!-- EVENTS WIDGET : begin -->
+<div class="widget events-widget">
+    <div class="widget-inner">
+        <h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-calendar-full"></i>Upcoming Events</h3>
+        <div class="widget-content">
+            <ul class="event-list">
+
+                {% if home_event %}
+                      {% for event in home_event %}
+                            <!-- EVENT : begin -->
+                                <li class="event m-has-date">
+                                    <div class="event-inner">
+                                        <div class="event-date" title="{{event.updated_on}}">
+                                            <span class="event-month">{{event.updated_on|date:"M"}}</span>
+                                            <span class="event-day">{{event.updated_on|date:"j"}}</span>
+                                        </div>
+                                        <h4 class="event-title"><a href="event-detail.html">{{event.title}}</a></h4>
+                                    </div>
+                                </li>
+                                <!-- EVENT : end -->
+                      {% endfor %}
+                {% else %}
+                {% endif %}
+                        
+
+            </ul>
+            <p class="show-all-btn"><a href="event-list.html">See All Events</a></p>
+        </div>
+    </div>
+</div>
+<!-- EVENTS WIDGET : end -->

@@ -17,7 +17,7 @@
                             <!-- GALLERY IMAGE : begin -->
                             <li class="gallery-image">
                                 <div class="gallery-image-inner">
-                                    <a href="{% url 'selected_category' category_slug=category.slug %}">
+                                    <a href="{% url 'gallery_detail' gallery_slug=post.slug %}">
                                         <img src="{{post.get_image_url|default_if_none:'#'}}" alt="{{post.title}}" class="img-thumbnail" style="width:100%;height:180px">
                                         <h2 class="gallery-title">{{post.title}}</h2>
                                      </a>

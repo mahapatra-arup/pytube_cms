@@ -6,7 +6,9 @@ from page.models import Menu
 #call register library
 register = template.Library()
 
-@register.inclusion_tag('includes/nav_menu.html', takes_context=True)
+nav_template_url="includes/nav_menu.html"
+
+@register.inclusion_tag(nav_template_url, takes_context=True)
 def load_menu(context,css_class):
     context['menu'] = Menu.objects.filter(parent=None, status=True).order_by("lvl")
     #pass Custom css Class

@@ -26,11 +26,11 @@ urlpatterns = [
      path('gallery',GalleryListView.as_view(),name='gallery_list'),
 
     # Details View
-     path('gallery/<slug:gallery_slug>/', GalleryDetailView.as_view(), name='gallery_detail'),
+     path('gallery/<slug:gallery_slug>/', GalleryDetailView.as_view(), name='gallery_detail'),#use in template
 
      #category/tags/archive
     path('category/<slug:category_slug>/', SelectedCategoryView.as_view(), name='selected_category'),
     path('tags/<slug:tag_slug>/', SelectedTagView.as_view(), name='selected_tag'),
     path('<year>/<month>/', ArchiveView.as_view(), name='archive_posts'),
-    path('<slug:blog_slug>/', BlogPostView.as_view(), name='blog_post_view'),
+    #path('<slug:blog_slug>/', BlogPostView.as_view(), name='blog_post_view'),
 ]
