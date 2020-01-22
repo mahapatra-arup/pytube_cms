@@ -58,11 +58,11 @@ class Gal_ImageAdmin(admin.ModelAdmin):
         else:
             return mark_safe('')
         
-
+     
 # Post---------------------------------------->
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin,ExportCsvMixin):
-    list_display = ('title','term', 'slug', 'user', 'category', 'status','featured_image_view','photos_count',)
+    list_display = ('title','term', 'slug', 'user', 'category', 'status','featured_image_view','photos_count','menu_name')
     list_filter =('title','term', 'slug', 'user', 'category', 'status')
     filter_horizontal = ("tags",)
     readonly_fields = ["featured_image_view",]
@@ -83,7 +83,9 @@ class PostAdmin(admin.ModelAdmin,ExportCsvMixin):
     def photos_count(self,obj):
         return obj.photos.all().count()
 
-
+    #menu name view
+    def menu_name(self,obj):
+        return obj.menu.title
 #Notice--------------------------------------->
 class  NoticeProxy(Post):
     class Meta:

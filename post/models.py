@@ -3,9 +3,12 @@ from django.conf import settings
 from django.utils.text import slugify
 import datetime
 import os
+import uuid
 from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
 from tinymce import HTMLField
+from page.models  import Menu
+
 # Create your models here.
 
 
@@ -114,6 +117,8 @@ class Gal_Image(models.Model):
 
     class Meta:
         db_table = "gal_image"
+        verbose_name = 'Gallery Images'
+        verbose_name_plural = 'Gallery Images'
 
     @property
     def get_image_url(self):
@@ -125,8 +130,9 @@ class Gal_Image(models.Model):
          
 #Post----------------------->
 class Post(models.Model):
+    menu=models.ForeignKey(Menu,on_delete=models.CASCADE,help_text="say's that the data will be insert in which Web page");
     title = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, unique=True,help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/')
+    slug = models.SlugField(max_length=100, unique=True,default=uuid.uuid4,help_text='The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

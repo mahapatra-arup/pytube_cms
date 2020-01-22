@@ -2,6 +2,7 @@ import datetime
 import os
 from django import template
 from post.models import Post
+from organization.models import Org_Details
 from pytube.constant_fields import *
 
 #call register library
@@ -32,4 +33,15 @@ event_template_url="includes/event_widget.html"
 @register.inclusion_tag(event_template_url, takes_context=True)
 def load_event(context):
     context['home_event'] = Post.objects.filter(term__name=CONST_EVENT_TERM).order_by("updated_on")
+    return context
+
+
+
+
+#Template
+event_template_url="includes/site_footer.html"
+#Notice tag
+@register.inclusion_tag(event_template_url, takes_context=True)
+def load_site_footer(context):
+    context['orgdetails'] = Org_Details.objects.all().first()
     return context

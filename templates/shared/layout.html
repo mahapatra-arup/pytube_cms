@@ -1,5 +1,7 @@
 ﻿	{% load static %}
     {% load nav_tags %}
+	{% comment %} use for footer section {% endcomment %}
+    {% load home_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -369,7 +371,7 @@
 		<!-- CORE : end -->
 
 	     <!-- FOOTER : begin -->
-		 {% include 'includes/site_footer.html' %}
+		    {% load_site_footer %}
 		<!-- FOOTER : end -->
 	
 

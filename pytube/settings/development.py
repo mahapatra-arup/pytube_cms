@@ -8,12 +8,14 @@ INSTALLED_APPS += [
     'simple_pagination',
     'tinymce',
     
+
     #My app
     'organization',
     'post',
     'page',
     'app',
     'home',
+    'staff',
 ]
 
 #MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]

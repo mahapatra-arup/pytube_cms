@@ -1,2 +1,15 @@
-1. python manage.py dumpdata post.term > term.json
-2. manage.py loaddata term.json
+===========app dump===================
+(env) d:\DTl CMS\Pytube>python manage.py dumpdata post > dumpdata/post.json
+(env) d:\DTl CMS\Pytube>python manage.py dumpdata page > dumpdata/page.json
+(env) d:\DTl CMS\Pytube>python manage.py dumpdata home > dumpdata/home.json
+(env) d:\DTl CMS\Pytube>python manage.py dumpdata organization > dumpdata/organization.json
+
+==============table dump==============
+>> python manage.py dumpdata post.term > term.json
+
+===============loaddata===============
+##load app .json file
+>> python manage.py loaddata dumpdata/organization.json
+
+##table load
+>> manage.py loaddata term.json
