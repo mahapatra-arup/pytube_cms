@@ -1,0 +1,77 @@
+{% extends 'shared/layout.html' %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+
+
+      <!-- =Tab  pill===-->
+      <div class="col-sm-2" style="margin:1px!important; padding:0!important">
+        <div class="card border-success">
+          <div class="card-header"><i class="w3-text-blue fa fa-leaf">&nbsp;</i>Team Group</div>
+              <div class="card-body text-success">
+                <div class="nav nav-pills flex-column " role="tablist" aria-orientation="vertical">
+                
+                {% for staff_group in ds_staff_group %}
+                       <a
+                        {% if forloop.first %}class="nav-link active"{% else %} class="nav-link" {% endif %} 
+                         data-toggle="pill" href=".{{staff_group.name|lower}}">{{staff_group.name}}</a>
+                {% empty %}
+                  <div>Sorry, no Team in this list.</div>
+                {% endfor %}
+
+              </div>
+          </div>
+        </div>
+      </div>  
+       <!-- =//Tab  pill===-->
+
+
+       <!-- ===Tab  content====-->
+      <div class="col-sm-7" style="margin:1px!important; padding:0!important" > 
+        <div class="card border-primary ">
+          <div class="card-header"><i class="w3-text-blue fa fa-leaf">&nbsp;</i>Team</div>
+          <div class="card-body">   
+
+            <div class="tab-content" >
+           
+              {% for staffgroup in ds_staff_group %}
+                  <div  {% if forloop.first %} class="{{staffgroup.name|lower}} tab-pane active"{% else %} class="{{staffgroup.name|lower}} tab-pane fade" {% endif %}  >
+                      {% for staffs in staffgroup.staff_set.all  %}
+                            
+                                    <!-- Team -->
+                                  <div class="w3-card-4">
+
+                                    <header class="w3-container w3-light-grey">
+                                    <br>
+                                      <h3><i class="w3-text-blue fa fa-user"></i>&nbsp;{{staffs.display_name}}</h3>
+                                    </header>
+
+                                    <div class="w3-container">
+                                        <img src="{{staffs.get_image_url}}" alt="Avatar" class="w3-left w3-circle" style="width:70px!important">
+                                        <p><i class="w3-text-green fa fa-adn"></i>&nbsp;{{staffs.designation}}<br><i class="w3-text-green fa fa-leaf">&nbsp;</i> {{staffs.edu_qualification}}<br><i class="w3-text-green  fa fa-lemon-o">&nbsp;</i>{{staffs.gender}}
+                                        <br><i class="w3-text-red fa fa-map"></i>&nbsp;{{staffs.address}}<br>
+
+                                      <i class="fa fa-phone-square"></i>&nbsp;<a href="tel:{{staffs.user.contact_no}}">{{staffs.contact_no}}</a>
+                                        <br><i class="w3-text-blue fa fa-send"></i>&nbsp;<a href="mailto:{{staffs.user.email}}">{{staffs.user.email}}</a></p>
+                                      </div>
+
+                                     <button class="w3-button w3-block w3-dark-grey">+ Connect</button>
+                                  </div>
+                                  <!-- //Team -->
+                      {% empty %}
+                      <div>Sorry, no Team in this list.</>
+                      {% endfor %}
+                  </div>
+              {% empty %}
+              
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+      </div>  
+        <!-- ===Tab  content====-->
+
+    </div>
+  </div>
+{% endblock %}

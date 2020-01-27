@@ -47,7 +47,7 @@ class Term (models.Model):
         return self.name
 
     def Term_posts(self):
-        return Post.objects.filter(category=self).count()
+        return Post.objects.filter(term=self).count()
 
 #Category------------------->
 class Category(models.Model):
@@ -110,7 +110,7 @@ class Tags(models.Model):
 from django.utils.safestring import mark_safe
 
 
-#Gallery Images
+#Gallery Images--------------->
 class Gal_Image(models.Model):
     name = models.CharField(max_length=100, null=False)
     photo = models.ImageField(upload_to='post/Gal_Image/%Y/%m/%d',null=True, blank=True)
@@ -178,16 +178,15 @@ class Post(models.Model):
     def get_image_url(self):
          if self.featured_image and hasattr(self.featured_image, 'url'):
           return self.featured_image.url
+
     @property
     def get_document_url(self):
          if self.document_file and hasattr(self.document_file, 'url'):
           return self.document_file.url  
    
-   
+       
 
-        
-
-
+#global method----------------->
 def create_slug(tempslug):
     slugcount = 0
     while True:

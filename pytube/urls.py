@@ -18,15 +18,34 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+#admin site config
+admin.site.site_header = "Pytube Admin"
+admin.site.site_title = "Pytube Admin Portal"
+admin.site.index_title = "Welcome to Pytube CMS Portal"
+#view site site url set
+#admin.site.site_url = 'http://coffeehouse.com/'#ref:https://www.webforefront.com/django/admincustomlayout.html
+#admin.empty_value_display = '**Empty**'
 
+
+#Url-patterns Design
 urlpatterns = [
-
-     path('',include("home.urls")),
-     path('post/',include("post.urls")),
+    #admin App
+    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
+
+
+    #Home Index App
+    path('',include("home.urls")),
+    #post App
+    path('post/',include("post.urls")),
+    #staff App
+    path('staff/',include("staff.urls")),
     
-    #3rd party
+    
+    #3rd party App
     path('tinymce/', include('tinymce.urls')),
 ]
 
+#Media Root static
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

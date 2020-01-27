@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-  
+    'jet.dashboard',
+    'jet',
+
     #Sys
     'django.contrib.admin',
     'django.contrib.auth',

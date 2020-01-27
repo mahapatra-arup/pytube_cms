@@ -41,7 +41,7 @@ class Menu(models.Model):
             #----------auto increment lavel-----------
             if self._state.adding: #only insert time work
                 maxlvl= Menu.objects.all().aggregate(maxval=Max('lvl'))['maxval']  #field Name
-                self.lvl= (int(maxlvl)+1)
+                self.lvl= (int(maxlvl or 0)+1)
 
             #----------super Execute------------
             super(Menu, self).save(*args, **kwargs)

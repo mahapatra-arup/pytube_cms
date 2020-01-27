@@ -2,6 +2,7 @@
 #import setting
 from .base import *
 from .tinymce_settings import *
+from .django_jet_settings import *
 
 INSTALLED_APPS += [
      #3rd prty
