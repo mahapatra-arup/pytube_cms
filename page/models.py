@@ -28,7 +28,7 @@ class Menu(models.Model):
         url = models.CharField(max_length=255, blank=True,editable=False)
         status = models.BooleanField(default=True)
         lvl = models.IntegerField(blank=True)
-        slug = models.SlugField()
+        slug = models.SlugField(unique=True)
         image=models.ImageField(upload_to='menu/', blank=True, null=True)
         view_title=models.CharField(max_length=10, choices=VIEW_TITLE_CHOICE, default='Both')
         

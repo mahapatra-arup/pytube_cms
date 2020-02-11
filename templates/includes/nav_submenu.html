@@ -9,7 +9,7 @@
           {% if submenu.has_children %}
             {% include "includes/nav_submenu.html" with menu=submenu %}
           {% else %}
-            <li><a tabindex="-1" href="{{ submenu.url }}">{{ submenu.title }}</a></li>
+            <li><a tabindex="-1" href="{% url submenu.url menu_slug=submenu.slug %}">{{ submenu.title }}</a></li>
           {% endif %}
         {% endfor %}
         </ul>

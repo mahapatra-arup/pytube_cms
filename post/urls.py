@@ -21,12 +21,15 @@ from post.views import *
 
 urlpatterns = [
     #list View
-     path('',PostListView.as_view(),name='post_list'),
-     path('notice',NoticeListView.as_view(),name='notice_list'),
-     path('gallery',GalleryListView.as_view(),name='gallery_list'),
+    # menu_slug use iDentify menu data
+     path('<slug:menu_slug>',PostListView.as_view(),name='post_list'),
+     path('notice/<slug:menu_slug>/',NoticeListView.as_view(),name='notice_list'),
+     path('gallery/<slug:menu_slug>/',GalleryListView.as_view(),name='gallery_list'),
 
     # Details View
-     path('gallery/<slug:gallery_slug>/', GalleryDetailView.as_view(), name='gallery_detail'),#use in template
+     path('details/<slug:post_slug>/', PostDetailView.as_view(), name='post_detail'),
+     path('gallery/photos/<slug:gallery_slug>/', GalleryDetailView.as_view(), name='gallery_detail'),
+     
 
      #category/tags/archive
     path('category/<slug:category_slug>/', SelectedCategoryView.as_view(), name='selected_category'),

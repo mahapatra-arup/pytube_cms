@@ -16,7 +16,7 @@
 
 						<!-- POST IMAGE : begin -->
 						<div class="post-image">
-							<a href="post-detail.html"><img src="{{post.get_image_url|default_if_none:'#'}}" alt=""></a>
+							<a href="{% url 'post_detail' post_slug=post.slug %}"><img src="{{post.get_image_url|default_if_none:'#'}}" alt=""></a>
 						</div>
 						<!-- POST IMAGE : end -->
 
@@ -24,7 +24,7 @@
 						<div class="post-core">
 
 							<!-- POST TITLE : begin -->
-							<h2 class="post-title"><a href="post-detail.html">{{post.title}}</a></h2>
+							<h2 class="post-title"><a href="{% url 'post_detail' post_slug=post.slug %}">{{post.title}}</a></h2>
 							<!-- POST TITLE : end -->
 
 							<!-- POST CONTENT : begin -->
@@ -48,7 +48,7 @@
 
 									<!-- POST DATE : begin -->
 									<span class="post-date">
-										{{ post.updated_on|date:"F d, Y" }} <a href="post-list.html">{{ blog.category }}</a>
+										{{ post.updated_on|date:"F d, Y" }} <a href="#">{{ blog.category }}</a>
 									</span>
 									<!-- POST DATE : end -->
 
@@ -80,21 +80,20 @@
 
 
 {% block right_sidebar_widget %}
+
 	<!-- categories starts here -->
-	<div class="widget categories-widget">
-		<div class="widget-inner">
-			<h3 class="widget-title m-has-ico">
-			<i class="widget-ico tp tp-list4"></i>Categories</h3>
-			<div class="widget-content">
-				<ul>
-					{% for category in categories_list %}
-					<li><a href="{% url 'selected_category' category_slug=category.slug %}">{{ category }} ({{ category|category_posts }})</a></li>
-					{% endfor %}
-				</ul>
-			</div>
+	<div class="card">
+		<div class="card-header">
+		<h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-list4"></i>Categories</h3>
+		</div>
+		<div class="card-body">
+				{% for category in categories_list %}
+				<h5 class="card-title"><a href="{% url 'selected_category' category_slug=category.slug %}">{{ category }} ({{ category|category_posts }})</a></h5>
+				{% endfor %}
 		</div>
 	</div>
-		<!-- categories ends here -->
+
+	<!-- categories ends here -->
         
 
 	<!-- Archive starts here -->

@@ -19,5 +19,5 @@ from .views import StaffListView
 
 
 urlpatterns = [
-     path('',StaffListView.as_view(),name='staff_list'),
+     path('<menu_slug>',StaffListView.as_view(),name='staff_list'),
 ]

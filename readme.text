@@ -1,21 +1,15 @@
 ## Django JET (Django3 compatible)
->>https://github.com/Barukimang/django-jet/
+>>https://github.com/Barukimang/django-jet/ download .zip znd install It Pip install C:/path
 
 
 
 
 
-
-
-
-
-
-
-
-
-TABLE-------------------------------------------------------------------------------->
+TABLE Uses ----------------------------------------->
 ###-TERM
 *Use for :- Which type of data and which data are show in home 
 
 ###-TEMPLATES
 *Use for :-HOow to view The data (Design of View)
+
+>>#url.py & menu.url-- menu_slug use iDentify menu data

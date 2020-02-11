@@ -36,7 +36,11 @@ urlpatterns = [
 
 
     #Home Index App
-    path('',include("home.urls")),
+    #default run
+    path('home/',include("home.urls")),
+
+    # //HOme 
+    path('home/',include("home.urls")),
     #post App
     path('post/',include("post.urls")),
     #staff App

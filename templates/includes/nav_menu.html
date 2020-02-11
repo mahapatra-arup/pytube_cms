@@ -12,12 +12,12 @@
                     {% if child.has_children %}
                         {% include 'includes/nav_submenu.html' with menu=child %}
                     {% else %}
-                      <li><a href="{{child.url}}">{{ child.title }}</a></li>
+                      <li><a href="{% url child.url menu_slug=child.slug %}">{{ child.title }}</a></li>
                     {% endif %}
                   {% endfor %}
                 </ul>
               {% else %}
-                  <a href="{{ menu.url }}">{{ menu.title }}</a>
+                  <a href="{% url menu.url menu_slug=menu.slug %}">{{ menu.title }}</a>
               {% endif %}
             </li>
           {% endloop %}
