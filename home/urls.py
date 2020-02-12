@@ -19,5 +19,9 @@ from .views import *
 
 
 urlpatterns = [
+    # //Redirect to home Index
+    path('',Index_Redirect,name='Index_Redirect'),
+
+    # //Home
      path('<menu_slug>',IndexView.as_view(),name='index_view'),
 ]

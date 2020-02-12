@@ -10,19 +10,17 @@ from pytube.settings import base,development
 from pytube.constant_fields import *
 from page.models import Menu  # menu Import
 
-#term means Post/notice/gallery/etc identifire
-def categories_tags_lists(term_value):
+#menuwise data
+def categories_tags_lists(menu_title):
     #categories
-    categories_list = Category.objects.filter(is_active=True, post__status='Published', post__term__name=term_value).distinct()
+    categories_list = Category.objects.filter(is_active=True, post__status='Published', post__menu__title=menu_title).distinct()
   
    #tags
     tags_list = Tags.objects.annotate(
         Num=Count('rel_posts')).filter(Num__gt=0, rel_posts__status='Published', rel_posts__category__is_active=True)[:20]
     
-    #Recent posts
-    posts = Post.objects.filter(status='Published').order_by('-updated_on')[0:3]
 
-    return {'categories_list': categories_list, 'tags_list': tags_list, 'recent_posts': posts}
+    return {'categories_list': categories_list, 'tags_list': tags_list}
 
 
 #<===================
@@ -30,7 +28,6 @@ def categories_tags_lists(term_value):
 class PostListView(ListView):
     #Custom var
     name_of_slug="menu_slug"
-    term_value=CONST_POST_TERM
 
      #fixed
     template_name = "post/post_list.html"
@@ -38,23 +35,33 @@ class PostListView(ListView):
     
     # queryset data
     def get_queryset(self):
+        #Menu Model Class return use By slug
         self.menu = get_object_or_404(Menu, slug=self.kwargs.get(self.name_of_slug))
         queryset = Post.objects.filter(menu=self.menu,category__is_active=True,status='Published').order_by('-updated_on')
         return queryset
-
+    
     #method
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        print(self.menu.slug)
+        #Menu Data Pass
+        #perameter(must be)
         context.update({
-            "description": 'post',
-            "title": 'Post',
-            "keywords": 'post',
-            "author": development.BLOG_AUTHOR,
-            "page_title":'Post',
+            "menu_name_slug": self.menu.slug,
         })
-       
-       #Term wise side data like Category/archive
-        context.update(categories_tags_lists(self.term_value))
+
+        #page data(optional)
+        context.update({
+            "description": self.menu.title ,
+            "title": self.menu.title,
+            "keywords": self.menu.title,
+            "author": development.BLOG_AUTHOR,
+            "page_title":self.menu.title,
+        })
+      
+       #menu wise side data like Category/archive
+        context.update(categories_tags_lists(self.menu.title))
+
         return context
 
 class PostDetailView(DetailView):
@@ -158,8 +165,8 @@ class GalleryDetailView(DetailView):
 
 class SelectedCategoryView(ListView):
     #Custom var
-    name_of_slug="category_slug"
-    term_value=CONST_POST_TERM
+    category_slug="category_slug"
+    menu_slug="menu_slug"
 
      #fixed
     template_name = "post/post_list.html"
@@ -167,16 +174,22 @@ class SelectedCategoryView(ListView):
     
     # queryset data
     def get_queryset(self):
-        self.menu = get_object_or_404(Menu, slug=self.kwargs.get(self.name_of_slug))
-        self.category = get_object_or_404(Category, slug=self.kwargs.get(name_of_slug))
-        queryset = Post.objects.filter(menu=self.menu,category=self.category,category__is_active=True,status='Published').order_by('-updated_on')
+        self.menu = get_object_or_404(Menu, slug=self.kwargs.get(self.menu_slug)) #\\
+        self.category = get_object_or_404(Category, slug=self.kwargs.get(self.category_slug))
+        queryset = Post.objects.filter(category=self.category,menu=self.menu,category__is_active=True,status='Published').order_by('-updated_on')
         return queryset
 
     #method
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        # //get dada
+        #Menu Data Pass
+        #perameter(must be)
+        context.update({
+            "menu_name_slug": self.menu.slug,
+        })
+
+        # //page data 
         user = self.category.user
         author = user.first_name if user.first_name else user.username
 
@@ -185,11 +198,11 @@ class SelectedCategoryView(ListView):
             "title": self.category.name,
             "keywords": self.category.meta_keywords,
             "author": author,
-            "page_title":self.category.name,
+            "page_title":self.category.name+' / '+self.menu.title  ,
         })
        
        #Term wise side data like Category/archive
-        context.update(categories_tags_lists(self.term_value))
+        context.update(categories_tags_lists(self.menu.title))
         return context
 
 class SelectedTagView(ListView):

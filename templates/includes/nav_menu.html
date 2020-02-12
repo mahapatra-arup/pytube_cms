@@ -6,7 +6,7 @@
           {% loop %}
             <li>
               {% if menu.has_children %}
-			   <a href="#">{{ menu.title }}</a>
+			   <a href="{% url menu.url menu_slug=menu.slug %}">{{ menu.title }}</a>
                 <ul>
                   {% for child in menu.get_children %}
                     {% if child.has_children %}

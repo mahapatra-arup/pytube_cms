@@ -31,7 +31,7 @@ class Org_ContactNo(models.Model):
 
 # ORG Details  Model
 class Org_Details(models.Model):
-    org_Name = models.CharField(max_length=200, unique=True)
+    org_name = models.CharField(max_length=200, unique=True)
     org_code=models.CharField(max_length=200,blank=True)
     at = models.CharField(max_length=200,blank=True)
     po = models.CharField(max_length=200,blank=True)

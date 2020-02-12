@@ -62,8 +62,8 @@ class Gal_ImageAdmin(admin.ModelAdmin):
 # Post---------------------------------------->
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin,ExportCsvMixin):
-    list_display = ('title','term', 'slug', 'user', 'category', 'status','featured_image_view','photos_count','menu_name')
-    list_filter =('title','term', 'slug', 'user', 'category', 'status')
+    list_display = ('title','menu_name', 'user', 'term','category',  'status','featured_image_view','photos_count','slug')
+    list_filter =('title','menu','term', 'user', 'category', 'status', 'slug')
     filter_horizontal = ("tags",)
     readonly_fields = ["featured_image_view",]
     actions = ["export_as_csv"]

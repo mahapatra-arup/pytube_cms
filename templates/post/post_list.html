@@ -88,7 +88,8 @@
 		</div>
 		<div class="card-body">
 				{% for category in categories_list %}
-				<h5 class="card-title"><a href="{% url 'selected_category' category_slug=category.slug %}">{{ category }} ({{ category|category_posts }})</a></h5>
+				{% comment %} "menu_name_slug"-->use menu title pass  {% endcomment %}
+				<h5 class="card-title"><a href="{% url 'selected_category' category_slug=category.slug menu_slug=menu_name_slug %}">{{ category }} ({{ category|category_posts }})</a></h5>
 				{% endfor %}
 		</div>
 	</div>

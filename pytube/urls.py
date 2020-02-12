@@ -32,15 +32,11 @@ urlpatterns = [
     #admin App
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
-    path('admin/', admin.site.urls),
+    path('admin/pt/', admin.site.urls),
 
 
     #Home Index App
-    #default run
-    path('home/',include("home.urls")),
-
-    # //HOme 
-    path('home/',include("home.urls")),
+    path('',include("home.urls")),
     #post App
     path('post/',include("post.urls")),
     #staff App

@@ -6,8 +6,8 @@ from .models import Org_Details,Org_SocialDetails,Org_ContactNo
 class Org_DetailsAdmin(admin.ModelAdmin):
 
     #
-    list_display = ["org_Name","org_code","dist","updated_on"]
-    list_display_links = ["org_Name","org_code"]
+    list_display = ["org_name","org_code","dist","updated_on"]
+    list_display_links = ["org_name","org_code"]
 
     #if atlist one row exist then add button not work/hide
     def has_add_permission(self, request):

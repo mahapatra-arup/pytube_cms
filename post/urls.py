@@ -32,8 +32,8 @@ urlpatterns = [
      
 
      #category/tags/archive
-    path('category/<slug:category_slug>/', SelectedCategoryView.as_view(), name='selected_category'),
-    path('tags/<slug:tag_slug>/', SelectedTagView.as_view(), name='selected_tag'),
+    path('category/<category_slug>/<slug:menu_slug>/', SelectedCategoryView.as_view(), name='selected_category'),
+    path('tags/a/<slug:tag_slug>/', SelectedTagView.as_view(), name='selected_tag'),
     path('<year>/<month>/', ArchiveView.as_view(), name='archive_posts'),
     #path('<slug:blog_slug>/', BlogPostView.as_view(), name='blog_post_view'),
 ]
