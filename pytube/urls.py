@@ -42,6 +42,8 @@ urlpatterns = [
     #staff App
     path('staff/',include("staff.urls")),
     
+     #page App
+    path('page/',include("page.urls")),
     
     #3rd party App
     path('tinymce/', include('tinymce.urls')),

@@ -15,10 +15,10 @@ INSTALLED_APPS += [
 
     #My app
     'organization',
-    'post',
-    'page',
-    'app',
     'home',
+    'page',
+    'post',
+    'app',
     'staff',
 ]
 

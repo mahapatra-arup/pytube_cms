@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Org_Details,Org_SocialDetails,Org_ContactNo
+from .models import Org_Details,Org_SocialDetails,Org_ContactNo,Org_UsefulLinks
 
 # Register your models here.
 @admin.register(Org_Details)
@@ -29,6 +29,10 @@ class Org_SocialDetailsAdmin(admin.ModelAdmin):
 @admin.register(Org_ContactNo)
 class Org_ContactNoAdmin(admin.ModelAdmin):
     pass   
+
+@admin.register(Org_UsefulLinks)
+class Org_UsefulLinksAdmin(admin.ModelAdmin):
+    pass  
 
 
 

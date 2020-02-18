@@ -19,11 +19,19 @@ STATUS_CHOICE = (
     #('Trashed', 'Trashed'),
 )
 
+POSITION_CHOICE = (
+    ('LEFT', 'LEFT'),
+    ('RIGHT', 'RIGHT'),
+    # ('BOTTOM', 'BOTTOM'),
+    #('TOP', 'TOP'),
+)
+
 #Term----------------------->
 class Term (models.Model):
     name = models.CharField(max_length=20, unique=True)
+    position=models.CharField(max_length=10, choices=POSITION_CHOICE, default="LEFT")
     slug = models.CharField(max_length=20, unique=True)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500,blank=True)
     is_active = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
@@ -46,7 +54,7 @@ class Term (models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=20, unique=True)
     slug = models.CharField(max_length=20, unique=True)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500,blank=True)
     is_active = models.BooleanField(default=False)
     meta_description = models.TextField(max_length=160, null=True, blank=True)
     meta_keywords = models.TextField(max_length=255, null=True, blank=True)

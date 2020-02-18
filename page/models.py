@@ -28,7 +28,7 @@ class Menu(models.Model):
         parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
         page_template=models.ForeignKey(Page_Template,on_delete=models.CASCADE,help_text='Select Page Template');
         title = models.CharField(max_length=100)
-        toolstrip=models.CharField(max_length=255)
+        toolstrip=models.CharField(max_length=255,blank=True)
         url = models.CharField(max_length=255, blank=True,editable=False)
         status = models.BooleanField(default=True)
         lvl = models.IntegerField(blank=True)

@@ -17,7 +17,7 @@ tinymce.init({
     /* plugin */
     plugins: [
         "advlist anchor autolink autoresize autosave bbcode charmap code codesample colorpicker ",
-        "contextmenu directionality emoticons example example_dependency fullpage fullscreen hr ",
+        "contextmenu directionality emoticons example example_dependency  fullscreen hr ", //fullpage --> remove for <br/> remove first time
         "image imagetools importcss insertdatetime layer legacyoutput link lists media nonbreaking ",
         "noneditable pagebreak paste preview print save searchreplace spellchecker tabfocus table   ",
         "template textcolor textpattern visualblocks visualchars wordcount"

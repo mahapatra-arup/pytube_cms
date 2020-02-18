@@ -1,0 +1,91 @@
+{% extends 'shared/layout.html' %}
+
+{% load paginate %}
+
+
+{% block content %}
+<form method="get" action="{% url 'search_results' %}"  class="c-search-form">
+		<div class="form-fields">
+			<input type="text" value="{{serach_str}}" placeholder="Search this site..." name="s_str" class="form-control">
+			<button type="submit" class="submit-btn"><i class="tp tp-magnifier"></i></button>
+		</div>
+	</form>
+<br>
+{% comment %} Search Result String {% endcomment %}
+<div  class="alert alert-success" role="alert" ><strong class="fa fa-info"></strong> &nbsp;<strong>Results for  "{{serach_str}}"</strong></div>
+
+	<!-- POST LIST PAGE : begin -->
+    <div class="post-page post-list-page">
+	 
+	  <div class="">
+		{% if object_list  %}
+		{% paginate 10 object_list  %}
+			{% for post in object_list  %}
+            <!-- POST : begin -->
+				<article class=" post">
+					<div class="post-inner c-content-box m-no-padding">
+
+						<!-- POST IMAGE : begin -->
+						<div class="post-image">
+							<a href="{% url 'post_detail' post_slug=post.slug %}"><img src="{{post.get_image_url|default_if_none:'#'}}" alt=""></a>
+						</div>
+						<!-- POST IMAGE : end -->
+
+						<!-- POST CORE : begin -->
+						<div class="post-core">
+
+							<!-- POST TITLE : begin -->
+							<h2 class="post-title"><a href="{% url 'post_detail' post_slug=post.slug %}">{{post.title}}</a></h2>
+							<!-- POST TITLE : end -->
+
+							<!-- POST CONTENT : begin -->
+							<div class="post-content">
+								<div class="post-content-inner">
+									<p> {{ post.content|safe|truncatewords_html:50 }}</p>
+								</div>
+							</div>
+							<!-- POST CONTENT : end -->
+
+						</div>
+						<!-- POST CORE : end -->
+
+						<!-- POST FOOTER : begin -->
+						<div class="post-footer">
+							<div class="post-footer-inner">
+
+								<!-- POST INFO : begin -->
+								<div class="post-info">
+									<i class="ico tp tp-clock2"></i>
+
+									<!-- POST DATE : begin -->
+									<span class="post-date">
+										{{ post.updated_on|date:"F d, Y" }} <a href="#">{{ blog.category }}</a>
+									</span>
+									<!-- POST DATE : end -->
+
+								</div>
+								<!-- POST INFO : end -->
+
+							</div>
+						</div>
+						<!-- POST FOOTER : end -->
+
+					</div>
+				</article>
+				<!-- POST : end -->             
+			{% endfor %} 
+
+		<!-- pagination  -->
+			<div class="c-pagination">
+				{% show_pages %}
+				<br>
+				{% show_pageitems %}
+			</div>
+		<!-- pagination  -->
+		{% else %}
+			 <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Search Result are here !</div>
+        {% endif %}
+      </div>
+	</div>
+{% endblock  %}
+

@@ -105,9 +105,9 @@
 
 								<!-- HEADER SEARCH : begin -->
 								<div class="header-search">
-									<form method="get" action="http://demos.lsvr.sk/townpress.html/demo/search-results.html" class="c-search-form">
+									<form method="get" action="{% url 'search_results' %}"  class="c-search-form">
 										<div class="form-fields">
-											<input type="text" value="" placeholder="Search this site..." name="s">
+											<input type="text" value="" placeholder="Search this site..." name="s_str">
 											<button type="submit" class="submit-btn"><i class="tp tp-magnifier"></i></button>
 										</div>
 									</form>

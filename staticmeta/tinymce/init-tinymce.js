@@ -16,8 +16,11 @@ tinymce.init({
 
     /* plugin */
     plugins: [
+        // "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+        // "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+        // "save table contextmenu directionality emoticons template textcolor paste  textcolor colorpicker"
         "advlist anchor autolink autoresize autosave bbcode charmap code codesample colorpicker ",
-        "contextmenu directionality emoticons example example_dependency fullpage fullscreen hr ",
+        "contextmenu directionality emoticons example example_dependency  fullscreen hr ", //fullpage
         "image imagetools importcss insertdatetime layer legacyoutput link lists media nonbreaking ",
         "noneditable pagebreak paste preview print save searchreplace spellchecker tabfocus table   ",
         "template textcolor textpattern visualblocks visualchars wordcount"

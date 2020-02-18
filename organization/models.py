@@ -69,8 +69,8 @@ class Org_Details(models.Model):
     email=models.EmailField( max_length=254,blank=True)
     fax=models.CharField(max_length=50,blank=True)
     contact_no= models.ManyToManyField(Org_ContactNo,max_length=100, blank=True,related_name='rel_Org_ContactNo')
-    social_details=models.ManyToManyField(Org_SocialDetails,max_length=100,blank=True, related_name='rel_Org_SocialDetails')
-
+    social_details=models.ManyToManyField(Org_SocialDetails,blank=True,null=True)
+    useful_link=models.ManyToManyField(Org_UsefulLinks,blank=True,null=True)
     slug = models.SlugField(unique=True,blank=True,editable=False)
     updated_on = models.DateField(auto_now=True)
 
@@ -79,10 +79,10 @@ class Org_Details(models.Model):
         verbose_name_plural = 'Organization'
    
     def __str__(self):
-        return self.org_Name
+        return self.org_name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.org_Name)
+        self.slug = slugify(self.org_name)
         super(Org_Details, self).save(*args, **kwargs)   
 
      
