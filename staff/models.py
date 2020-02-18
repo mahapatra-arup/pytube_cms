@@ -45,8 +45,8 @@ class Staff_Group(models.Model):
     #Met Descriptions
     class Meta:
         db_table = "pt_Staff_Group"
-        verbose_name = 'Group'
-        verbose_name_plural = 'Group'
+        verbose_name = 'staff-Group'
+        verbose_name_plural = 'staff-Group'
 
 
  

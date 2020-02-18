@@ -162,54 +162,11 @@
 
 		<!-- CORE : begin -->
 		<div id="core">
-			<div class="c-container">
+			<div class="container-fluid">
 				<div class="row">
 
-					<!-- MIDDLE COLUMN : begin -->
-					<div class="middle-column col-md-6 col-md-push-3">
-				
-							<!-- PAGE HEADER : begin -->
-						<div id="page-header" class="m-has-breadcrumbs">
-
-							<!-- PAGE TITLE : begin -->
-							<div class="page-title">
-								<h1>{{page_title|safe}}</h1>
-							</div>
-							<!-- PAGE TITLE : end -->
-
-							<!-- BREADCRUMBS : begin -->
-							<div class="breadcrumbs">
-								<ul>
-									<li class="home"><a href="/"><i class="fa fa-home"></i></a></li>
-									<li>{{page_title|safe}}</li> 
-								</ul>
-							</div>
-							<!-- BREADCRUMBS : end -->
-
-						</div>
-						<!-- PAGE HEADER : end -->
-
-
-						<!-- PAGE CONTENT : begin -->
-						<div id="page-content">
-							<div class="page-content-inner">
-
-							{% block content %}
-
-							{% endblock %}
-								
-
-							</div>
-						</div>
-						<!-- PAGE CONTENT : end -->
-
-						<hr class="c-separator m-margin-top-small m-margin-bottom-small m-transparent hidden-lg hidden-md">
-
-					</div>
-					<!-- MIDDLE COLUMN : end -->
-
 					<!-- LEFT COLUMN : begin -->
-					<div class="left-column col-md-3 col-md-pull-6">
+					<div class="col-md-3">
 
 						<!-- SIDE MENU : begin -->
 						<div>
@@ -223,68 +180,10 @@
 						<aside class="sidebar">
 							<div class="widget-list">
 
-								<!-- DOCUMENTS WIDGET : begin -->
-								<div class="widget documents-widget">
-									<div class="widget-inner">
-										<h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-papers"></i>Documents</h3>
-										<div class="widget-content">
-											<ul class="document-list m-has-icons">
+                                {% block left_sidebar_widget %}
+							    {% endblock %}
 
-												<!-- DOCUMENT : begin -->
-												<li class="document">
-													<div class="document-inner">
-														<div class="document-icon" title="PDF File"><i class="fa fa-file-pdf-o"></i></div>
-														<h4 class="document-title">
-															<a href="documents/dummy-document2.pdf" target="_blank">Council Agenda April 24, 2015</a>
-															<span class="document-filesize">(27 kB)</span>
-														</h4>
-													</div>
-												</li>
-												<!-- DOCUMENT : end -->
-
-												<!-- DOCUMENT : begin -->
-												<li class="document">
-													<div class="document-inner">
-														<div class="document-icon" title="PDF File"><i class="fa fa-file-pdf-o"></i></div>
-														<h4 class="document-title">
-															<a href="documents/dummy-document.pdf" target="_blank">Town Report 2015</a>
-															<span class="document-filesize">(24 kB)</span>
-														</h4>
-													</div>
-												</li>
-												<!-- DOCUMENT : end -->
-
-												<!-- DOCUMENT : begin -->
-												<li class="document">
-													<div class="document-inner">
-														<div class="document-icon" title="Word Document"><i class="fa fa-file-word-o"></i></div>
-														<h4 class="document-title">
-															<a href="documents/dummy-document2.pdf" target="_blank">Police Contract</a>
-															<span class="document-filesize">(27 kB)</span>
-														</h4>
-													</div>
-												</li>
-												<!-- DOCUMENT : end -->
-
-												<!-- DOCUMENT : begin -->
-												<li class="document">
-													<div class="document-inner">
-														<div class="document-icon" title="Word Document"><i class="fa fa-file-word-o"></i></div>
-														<h4 class="document-title">
-															<a href="documents/dummy-document2.pdf" target="_blank">Public Schools Contract</a>
-															<span class="document-filesize">(27 kB)</span>
-														</h4>
-													</div>
-												</li>
-												<!-- DOCUMENT : end -->
-
-											</ul>
-											<p class="show-all-btn"><a href="document-list.html">See All Documents</a></p>
-										</div>
-									</div>
-								</div>
-								<!-- DOCUMENTS WIDGET : end -->
-
+								
 								<!-- LOCALE INFO WIDGET : begin -->
 								<!-- to remove background image from this widget, simply remove "m-has-bg" class from the following element -->
 								<div class="widget locale-info-widget ">
@@ -351,8 +250,54 @@
 					</div>
 					<!-- LEFT COLUMN : end -->
 
+
+					<!-- MIDDLE COLUMN : begin -->
+					<div class="col-md-6">
+				
+							<!-- PAGE HEADER : begin -->
+						<div id="page-header" class="m-has-breadcrumbs">
+
+							<!-- PAGE TITLE : begin -->
+							<div class="page-title">
+								<h1>{{page_title|safe}}</h1>
+							</div>
+							<!-- PAGE TITLE : end -->
+
+							<!-- BREADCRUMBS : begin -->
+							<div class="breadcrumbs">
+								<ul>
+									<li class="home"><a href="/"><i class="fa fa-home"></i></a></li>
+									<li>{{page_title|safe}}</li> 
+								</ul>
+							</div>
+							<!-- BREADCRUMBS : end -->
+
+						</div>
+						<!-- PAGE HEADER : end -->
+
+
+						<!-- PAGE CONTENT : begin -->
+						<div id="page-content">
+							<div class="page-content-inner">
+
+							{% block content %}
+
+							{% endblock %}
+								
+
+							</div>
+						</div>
+						<!-- PAGE CONTENT : end -->
+
+						<hr class="c-separator m-margin-top-small m-margin-bottom-small m-transparent hidden-lg hidden-md">
+
+					</div>
+					<!-- MIDDLE COLUMN : end -->
+
+					
+
 					<!-- RIGHT COLUMN : begin -->
-					<div class="right-column col-md-3">
+					<div class="col-md-3">
 
 						<!-- RIGHT SIDEBAR : begin -->
 						<aside class="sidebar">

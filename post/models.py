@@ -12,18 +12,11 @@ from page.models  import Menu
 # Create your models here.
 
 
-
-ROLE_CHOICE = (
-    ('Admin', 'Admin'),
-    ('Publisher', 'Publisher'),
-    ('Author', 'Author'),
-)
-
 STATUS_CHOICE = (
     ('Drafted', 'Drafted'),
     ('Published', 'Published'),
     ('Rejected', 'Rejected'),
-    ('Trashed', 'Trashed'),
+    #('Trashed', 'Trashed'),
 )
 
 #Term----------------------->
@@ -61,8 +54,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ['-id']
-        verbose_name = 'category'
-        verbose_name_plural = 'categories'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Category'
         db_table = "pt_Category"
 
     def save(self, *args, **kwargs):
@@ -82,7 +75,9 @@ class Tags(models.Model):
 
     class Meta:
         db_table = "pt_Tags"
-
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tag'
+    
     def save(self, *args, **kwargs):
         tempslug = slugify(self.name)
         if self.id:
@@ -156,7 +151,9 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-updated_on']
-
+        db_table = "Post"
+        verbose_name = 'Post'
+        verbose_name_plural = 'Post'
    
     def save(self, *args, **kwargs):
         tempslug = slugify(self.title)

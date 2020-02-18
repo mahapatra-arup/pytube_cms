@@ -1,6 +1,13 @@
 {% extends 'shared/layout.html' %}
  {% load home_tags %}
 
+ 
+{% block left_sidebar_widget %}
+   <!--load Notice-->
+   {% load_document %}
+   
+{% endblock %}
+
 {% block content %}
     <!--load Slider-->
     {% load_slider %}

@@ -89,16 +89,17 @@
 		<div class="card-body">
 				{% for category in categories_list %}
 				{% comment %} "menu_name_slug"-->use menu title pass  {% endcomment %}
-				<h5 class="card-title"><a href="{% url 'selected_category' category_slug=category.slug menu_slug=menu_name_slug %}">{{ category }} ({{ category|category_posts }})</a></h5>
+				<h5 class="card-title"><a href="{% url 'selected_category' menu_slug=menu_name_slug category_slug=category.slug  %}">{{ category }} ({{ category|category_posts }})</a></h5>
 				{% endfor %}
 		</div>
 	</div>
 
 	<!-- categories ends here -->
         
+    <br>
 
 	<!-- Archive starts here -->
-	<div class="widget events-widget">
+	<div class="card widget events-widget">
 		<div class="widget-inner">
 			<h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-archive"></i>Archive</h3>
 			<div class="widget-content">
@@ -107,7 +108,7 @@
 						<li class="event m-has-date" >
 							{% for archive in archives %}
 								<!-- EVENT : begin -->
-									<a href="{% url 'archive_posts' year=archive|date:'Y' month=archive|date:'m' %}" class="col-md-3">
+									<a href="{% url 'archive_posts' menu_slug=menu_name_slug year=archive|date:'Y' month=archive|date:'m'  %}" class="col-md-3">
 										<div class="event-inner">
 											<div title="{{ archive|date:"F Y" }}" class="event-date">
 												<span class="event-month">{{ archive|date:"M" }}</span>
@@ -125,14 +126,14 @@
 	<!-- Archive ends here -->
         
 	<!-- tags starts here -->
-	<div class="widget categories-widget">
+	<div class="card widget categories-widget">
 		<div class="widget-inner">
 			<h3 class="widget-title m-has-ico">
 			<i class="widget-ico tp tp-tag"></i>Tags</h3>
 			<div class="widget-content">
 
 			{% for tag in tags_list %}
-				<a href="{% url 'selected_tag' tag_slug=tag.slug %}"><i class="fa fa-tag"></i> {{ tag }}</a>
+				<a href="{% url 'selected_tag' menu_slug=menu_name_slug tag_slug=tag.slug %}"><i class="fa fa-tag"></i> {{ tag }}</a>
 			{% endfor %}
 				
 			</div>

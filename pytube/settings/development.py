@@ -4,6 +4,9 @@ from .base import *
 from .tinymce_settings import *
 from .django_jet_settings import *
 
+# gives the root of the project: root/. This is THE ROOT OF THE PROJECT.
+PROJECT_ROOT_PATH = os.path.abspath(os.path.dirname(__name__))
+
 INSTALLED_APPS += [
      #3rd prty
     'simple_pagination',

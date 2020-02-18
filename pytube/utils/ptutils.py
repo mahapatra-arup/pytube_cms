@@ -1,5 +1,5 @@
 from django.utils.text import slugify
-
+import math
 
 #--generate Unique Slug--
 def generate_unique_slug(klass, field):
@@ -17,4 +17,14 @@ def generate_unique_slug(klass, field):
         unique_slug = '%s-%d' % (origin_slug, numb)
         numb += 1
     return unique_slug
+
+
+def convert_to_size(size_bytes): 
+    if size_bytes == 0: 
+        return "0B" 
+    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB") 
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    power = math.pow(1024, i) 
+    size = round(size_bytes / power, 2) 
+    return "{} {}".format(size, size_name[i])
 

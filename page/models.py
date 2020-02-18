@@ -15,7 +15,11 @@ class Page_Template(models.Model):
     url = models.CharField(max_length=20, unique=True)
     description = models.CharField(max_length=500)
     is_active = models.BooleanField(default=False)
-    
+
+    class Meta:
+            db_table = "Page_Template"
+            verbose_name = 'Page Template'
+            verbose_name_plural = 'Page Template'
     
     def __str__(self):
         return self.name    
@@ -32,6 +36,13 @@ class Menu(models.Model):
         image=models.ImageField(upload_to='menu/', blank=True, null=True)
         view_title=models.CharField(max_length=10, choices=VIEW_TITLE_CHOICE, default='Both')
         
+
+        class Meta:
+            db_table = "Menu"
+            verbose_name = 'Menu'
+            verbose_name_plural = 'Menu'
+
+
         def save(self, *args, **kwargs):
             
              #----------generate url field(copy url field from template)-----------

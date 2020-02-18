@@ -16,8 +16,8 @@ class Org_SocialDetails(models.Model):
     social_link=models.URLField(max_length=500,blank=True)
 
     class Meta:
-        verbose_name = 'Organization Social Details'
-        verbose_name_plural = 'Organization Social Details'
+        verbose_name = 'Org Social'
+        verbose_name_plural = 'Org Social'
    
     def __str__(self):
         return self.name
@@ -28,6 +28,20 @@ class Org_ContactNo(models.Model):
     ph=models.CharField(max_length=13, unique=True)
     def __str__(self):
         return self.name+' - '+self.ph
+    
+    class Meta:
+        verbose_name = 'Org Contacts'
+        verbose_name_plural = 'Org Contacts'
+
+class Org_UsefulLinks(models.Model):
+    title=models.CharField(max_length=100)
+    links=models.URLField()
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Useful Links'
+        verbose_name_plural = 'Useful Links'
 
 # ORG Details  Model
 class Org_Details(models.Model):

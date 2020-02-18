@@ -12,8 +12,7 @@
         <div class="widget-content">
             <ul class="event-list">
 
-                {% if home_event %}
-                      {% for event in home_event %}
+                      {% for event in widget_event %}
                             <!-- EVENT : begin -->
                                 <li class="event m-has-date">
                                     <div class="event-inner">
@@ -25,9 +24,11 @@
                                     </div>
                                 </li>
                                 <!-- EVENT : end -->
+
+                      {% empty %}
+                                
                       {% endfor %}
-                {% else %}
-                {% endif %}
+                
                         
 
             </ul>
