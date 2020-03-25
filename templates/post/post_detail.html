@@ -1,0 +1,81 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+<!-- POST DETAIL PAGE : begin -->
+    <div class="post-page post-detail-page">
+
+        {% if ds_posts_detail %}
+            <!-- POST : begin -->
+                <div class="card post">
+                    <div class="post-inner c-content-box m-no-padding">
+                            
+                        <!-- POST IMAGE : begin -->
+                        <div class="post-image">
+                            <img src="{{ds_posts_detail.get_image_url|default_if_none:'#'}}" alt="">
+                        </div>
+                        <!-- POST IMAGE : end -->
+
+                        <!-- POST CORE : begin -->
+                        <div class="post-core">
+
+                            <!-- POST CONTENT : begin -->
+                            <div class="post-content">
+                                <div class="post-content-inner">
+                                    <p>{{ ds_posts_detail.content|safe}}</p>
+                                </div>
+                            </div>
+                            <!-- POST CONTENT : end -->
+
+                        </div>
+                        <!-- POST CORE : end -->
+
+                        <!-- POST FOOTER : begin -->
+                        <div class="post-footer">
+                            <div class="post-footer-inner">
+
+                                <!-- POST INFO : begin -->
+                                <div class="post-info">
+                                    <i class="ico tp tp-clock2"></i>
+
+                                    <!-- POST DATE : begin -->
+                                    <span class="post-date">
+                                        {{ ds_posts_detail.updated_on|date:"F d, Y" }} <a href="{% url 'selected_category' menu_slug=ds_posts_detail.menu.slug category_slug=ds_posts_detail.category.slug  %}">&nbsp;<i class="fa fa-list"></i>&nbsp;{{ ds_posts_detail.category }}</a>
+                                    </span>
+                                    <!-- POST DATE : end -->
+
+                                    <!-- POST COMMENTS : begin -->
+                                    <span class="post-comments">
+                                        <a href="#">Comments (0)</a>
+                                    </span>
+                                    <!-- POST COMMENTS : end -->
+
+                                </div>
+                                <!-- POST INFO : end -->
+
+                                <!-- POST TAGS : begin -->
+                                <div class="post-tags">
+                                    <i class="ico tp tp-tag"></i>
+
+                                    
+                                       {% for tag in ds_posts_detail.tags.all %}
+                                           <a href="{% url 'selected_tag' menu_slug=ds_posts_detail.menu.slug tag_slug=tag.slug %}">{{tag.name}}</a>,
+                                       {% empty %}
+                                       {% endfor %}
+                                       
+                                   
+                                </div>
+                                <!-- POST TAGS : end -->
+
+                            </div>
+                        </div>
+                        <!-- POST FOOTER : end -->
+
+                    </div>
+                </div>
+                <!-- POST : end -->
+        {% else %}
+        {% endif %}
+        
+    </div>
+    <!-- POST DETAIL PAGE : end -->
+{% endblock %}

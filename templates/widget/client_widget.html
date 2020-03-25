@@ -1,0 +1,59 @@
+{% if term_data.is_active %}
+
+{% load static %}
+<!-- owl.carousel Style sheet -->
+<link rel="stylesheet" href="{% static 'owl_carousel\owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'owl_carousel\owl.theme.default.min.css' %}">
+
+<br>
+
+<div class="card-body w3-card-2 w3-round-medium">
+<span class="widget-title-style fa fa-user">&nbsp;Clients</span>
+<div class="seprator"></div>
+
+    <div class="owl-carousel owl-theme">
+        {% for client in widget_client %}
+            <img src="{{client.get_image_url}}" alt="{{client.title}}"  class="img-thumbnail w3-card" >
+        {% empty %}
+            <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Services are here !</div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- owl.carousel js -->
+<script>
+$(document).ready(function(){
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+        items:5,
+        loop:true,
+        margin:10,
+        autoplay:true,
+        autoplayTimeout:1000,
+        autoplayHoverPause:true,
+
+        /*responsive*/
+        responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            nav:true
+        },
+        600:{
+            items:3,
+            nav:false
+        },
+        1000:{
+            items:5,
+            nav:true,
+            loop:false
+        }
+    }
+    });
+});
+</script>
+
+<script src="{% static 'owl_carousel\owl.carousel.min.js' %}" type="text/javascript"></script>
+
+{% endif %}  

@@ -1,0 +1,30 @@
+
+{% extends 'shared/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+
+  <div class="form-row w3-animate-zoom w3-border-brown w3-padding-16">
+    <div class="form-group col-md-12 mb-0">
+      {{ form.name|as_crispy_field }}
+    </div>
+
+    <div class="form-group col-md-12 mb-0">
+      {{ form.email|as_crispy_field }}
+    </div>
+
+    <div class="form-group col-md-12 mb-0">
+      {{ form.subject|as_crispy_field }}
+    </div>
+
+    <div class="form-group col-md-12 mb-0">
+      {{ form.content|as_crispy_field }}
+    </div>
+  </div>
+  
+  <button type="submit" class="btn btn-primary float-right"><i class="fa fa-send"></i> Send</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+
+{% comment %}
+----------------------------------
+# tag :: home-->templatetags-->home_tags-->load_post()  
+-------------------------------
+{% endcomment %}
+
+
+{% if term_data.is_active %}
+<!-- Post WIDGET : begin -->
+<div class="card widget posts-widget">
+            <div class="widget-inner">
+                <h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-book3"></i> Recent Post</h3>
+                <div class="widget-content">
+                    <ul class="post-list-inner">
+                 
+                              {% for post in widget_post %}
+
+                                  <!-- Post : begin -->
+                                    <li class="post">
+                                        <div class="post-content-inner">
+                                            <h4 class="post-title"><a href="{% url 'post_detail' post_slug=post.slug %}" target="_blank" class=""><i class="fa fa-arrow-right"></i>&nbsp;{{post.title}}</a></h4>
+                                            <span class="post-date">{{ post.updated_on }}</span>
+                                        </div>
+                                    </li>
+                                    <!-- Post : end -->
+
+                              {% empty %}
+                               <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Post are here !</div>
+                              {% endfor %}
+                     
+                        
+                    </ul>
+                    {% comment %} <p class="show-all-btn"><a href="/post/notice">See All Notices</a></p> {% endcomment %}
+                </div>
+            </div>
+        </div>
+<!-- post WIDGET : end -->
+{% endif %}  

@@ -1,0 +1,83 @@
+{% comment %} # tag :: home-->templatetags-->home_tags-->load_testimonial() {% endcomment %} {% if term_data.is_active %}
+<br>
+
+<style>
+    .testimonial-font {
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .testimonial_subtitle {
+        color: #0aaa7a;
+        font-size: 12px;
+    }
+    
+    .testimonial_btn {
+        background-color: #373d4b !important;
+        color: #fff !important;
+    }
+    
+    .testimonial {
+        display: none;
+    }
+</style>
+
+
+
+<div class="card-body w3-card-2 w3-round-medium testimonial-font ">
+
+    <span class="widget-title-style fa fa-file-text">&nbsp;Testimonial</span>
+    <div class="seprator"></div>
+
+    <div class="w3-content">
+        {% for staff in widget_testimonial %}
+        <div class="testimonial w3-container">
+
+            <div class="row" style="padding: 5px">
+                <button style="border: none;"><i class="fa fa-quote-left testimonial_fa" aria-hidden="true"></i></button>
+                <p class="testimonial_para">{{staff.opinion|striptags|truncatewords_html:400}}</p><br>
+
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <img src="{{staff.get_image_url}}" class="img-responsive" style="width:120px!important;">
+                    </div>
+
+                    <div class="col-sm-8">
+                        <h4><strong>{{staff.display_name}}</strong></h4>
+                        <p class="testimonial_subtitle"><span>{{staff.designation}}</span><br>
+                            <span>{{staff.designation}}</span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        {% empty %}
+        <div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no Testimonial are here !</div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<script>
+    var slideIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("testimonial");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > x.length) {
+            slideIndex = 1
+        }
+        x[slideIndex - 1].style.display = "block";
+        setTimeout(carousel, 4000);
+    }
+</script>
+
+{% endif %}

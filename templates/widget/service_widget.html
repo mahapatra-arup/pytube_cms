@@ -1,0 +1,39 @@
+
+{% if term_data.is_active %}
+
+{% load static %}
+<!-- Style sheet -->
+<link rel="stylesheet" href="{% static 'widget\css\service_widge.min.css' %}">
+
+<div class="card-body w3-card-2 w3-round-medium">
+  
+   <span class=" widget-title-style fa fa-server">&nbsp;Services</span>
+    <div class="seprator"></div>
+    
+    <div class="card-body">    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-timeline7">
+
+                    {% for service in widget_service %}
+                    <div class="timeline">
+                            <div class="timeline-icon"><i class="{{service.icon_class}}"></i></div>
+                            <span class="year"><h5 class="title">{{service.title}}</h5></span>
+                            <div class="timeline-content">
+                                <p class="description">
+                                {{service.content}}  
+                                </p>
+                            </div>
+                        </div>
+                    {% empty %}
+                    <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Services are here !</div>
+                    {% endfor %}
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}  

@@ -1,0 +1,15 @@
+<!--==tag = home=>templatetags=>home_tags=>load_content()== -->
+
+
+{% if term_data.is_active %} {% for content in widget_content %}
+
+<br/>
+<div class="card-body w3-card-2 w3-round-medium">
+    <span class="widget-title-style"><i class="{{content.icon_class|default_if_none:'fa fa-sticky-note'}}"></i>&nbsp;{{content.title}}</span>
+    <div class="seprator"></div>
+    {{content.content|safe}}
+</div>
+
+{% empty %}
+<div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no Content are here !</div>
+{% endfor %} {% endif %}

@@ -1,0 +1,54 @@
+ {% comment %}
+  ------------------------------------------
+ # tag :: home-->templatetags-->home_tags-->load_slider() 
+  ---------------------------------------
+ {% endcomment %}
+
+
+{% if term_data.is_active %} 
+<!-- SLIDER : begin -->
+     <!-- If you want to have single BG image for all slides,
+     just add style="background-image: url( 'url-to-your-image.jpg' );" to the following element
+     (and remove "style" attributes from all "slide" elements) -->
+     <div class="card w3-card-4 c-slider" data-autoplay="8">
+          <div class="slide-list">
+                {% if home_slider %}
+                   {% for sliders in home_slider %}
+                     
+                      {% if sliders %}
+                            {% for slide_image in sliders.photos.all %}
+                                   <!-- SLIDE : begin -->
+                                    <div class="slide" style="background-image: url({{slide_image.get_image_url|default_if_none:'#'}});">
+                                            <div class="slide-inner">
+                                                <!-- You can change vertical align of the content with the following classes valign-top | valign-middle | valign-bottom -->
+                                                <div class="slide-content valign-bottom">
+
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-md-push-6">
+                                                            <h2><a href="#">{{sliders.title}}</a></h2>
+                                                            <h3>{{sliders.content|striptags|truncatewords_html:50}}</h3>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                    <!-- SLIDE : end -->
+
+                        {% endfor %}
+                      {% else %}
+                      {% endif %}
+                       
+                   {% endfor %}
+                {% else %}
+                    <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Slider are here !</div>
+                {% endif %}
+                       
+
+          </div>
+     </div>
+     <!-- SLIDER : end -->
+{% endif %}  
+
+

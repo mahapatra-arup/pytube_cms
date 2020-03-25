@@ -1,0 +1,15 @@
+===========app dump===================
+python manage.py dumpdata post > dumpdata/post.json
+python manage.py dumpdata page > dumpdata/page.json
+python manage.py dumpdata home > dumpdata/home.json
+python manage.py dumpdata organization > dumpdata/organization.json
+
+==============table dump==============
+>> python manage.py dumpdata post.term > term.json
+
+===============loaddata===============
+##load app .json file
+>> python manage.py loaddata dumpdata/organization.json
+
+##table load
+>> manage.py loaddata term.json

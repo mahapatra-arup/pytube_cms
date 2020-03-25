@@ -1,0 +1,43 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+	<!-- POST LIST PAGE : begin -->
+    <div class="card post-page post-list-page">
+			{% for post in ds_posts %}
+            <!-- POST : begin -->
+				<article class="post">
+					<div class="post-inner c-content-box m-no-padding">
+
+						<!-- POST IMAGE : begin -->
+						<div class="post-image">
+							<a href="{% url 'post_detail' post_slug=post.slug %}"><img src="{{post.get_image_url|default_if_none:'#'}}" alt=""></a>
+						</div>
+						<!-- POST IMAGE : end -->
+
+						<!-- POST CORE : begin -->
+						<div class="post-core">
+
+							<!-- POST TITLE : begin -->
+							<h2 class="post-title"><a href="{% url 'post_detail' post_slug=post.slug %}">{{post.title}}</a></h2>
+							<!-- POST TITLE : end -->
+
+							<!-- POST CONTENT : begin -->
+							<div class="post-content">
+								<div class="post-content-inner">
+									<p> {{ post.content|safe }}</p>
+								</div>
+							</div>
+							<!-- POST CONTENT : end -->
+
+						</div>
+						<!-- POST CORE : end -->
+					</div>
+				</article>
+				<!-- POST : end -->    
+
+			{% empty %}	
+			 <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Content are here !</div>
+			{% endfor %} 
+
+	</div>
+{% endblock %} 

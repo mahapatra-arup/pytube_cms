@@ -1,0 +1,320 @@
+{% extends 'shared/layout.html' %} {% block content %} {% include 'shop\style.html' %} {% load paginate %}
+
+<header class="section-header  card card-body">
+    <section class="header-main border-bottom">
+        <div class="container-fluid">
+            <div class="row">
+
+                {% comment %} --Search-- {% endcomment %}
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <form action="#" class="search-header">
+                        <div class="input-group w-100">
+                            <select class="custom-select border-right" name="category_name">
+									<option value="">All type</option><option value="codex">Special</option>
+									<option value="comments">Only best</option>
+									<option value="content">Latest</option>
+							</select>
+                            <input type="text" class="form-control" placeholder="Search">
+
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+								<i class="fa fa-search"></i> Search
+							</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- search-wrap .end// -->
+                </div>
+                <!-- col.// -->
+
+                {% comment %} Category {% endcomment %}
+                <div class="col-md-4">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-bars text-muted mr-2"></i> Categories </a>
+                    <div class="dropdown-menu">
+
+                        {% for category in categories_list %} <a class="dropdown-item" href="{% url 'category-list' menu_slug=menu_name_slug cat_slug=category.slug %}">{{category.name}}</a> {% empty %} {% endfor %}
+                    </div>
+                </div>
+
+                {% comment %} Account {% endcomment %}
+                <div class="col-md-8">
+                    <div class="widgets-wrap float-md-right">
+                        <div class="widget-header mr-3">
+                            <a href="#" class="widget-view">
+                                <div class="icon-area">
+                                    <i class="fa fa-user"></i>
+                                    <span class="notify">3</span>
+                                </div>
+                                <small class="text">profile </small>
+                            </a>
+                        </div>
+                        <div class="widget-header mr-3">
+                            <a href="#" class="widget-view">
+                                <div class="icon-area">
+                                    <i class="fa fa-comment-dots"></i>
+                                    <span class="notify">1</span>
+                                </div>
+                                <small class="text"> Message </small>
+                            </a>
+                        </div>
+                        <div class="widget-header mr-3">
+                            <a href="#" class="widget-view">
+                                <div class="icon-area">
+                                    <i class="fa fa-store"></i>
+                                </div>
+                                <small class="text"> Orders </small>
+                            </a>
+                        </div>
+                        <div class="widget-header">
+                            <a href="#" class="widget-view">
+                                <div class="icon-area">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                                <small class="text"> Cart </small>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- widgets-wrap.// -->
+                </div>
+                <!-- col.// -->
+            </div>
+            <!-- row.// -->
+        </div>
+        <!-- container.// -->
+    </section>
+    <!-- header-main .// -->
+</header>
+
+
+<!--- ===Content  === -->
+<section class="section-content padding-y  card card-body">
+    <div class="container-fluid">
+
+        <div class="row">
+            <aside class="col-md-4">
+
+                <article class="filter-group">
+                    <h6 class="title">
+                        <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_1">	 Product type </a>
+                    </h6>
+                    <div class="filter-content collapse show" id="collapse_1" style="">
+                        <div class="inner">
+                            <ul class="list-menu">
+                                <li><a href="#">Shorts  </a></li>
+                                <li><a href="#">Trousers </a></li>
+                                <li><a href="#">Sweaters  </a></li>
+                                <li><a href="#">Clothes  </a></li>
+                                <li><a href="#">Home items </a></li>
+                                <li><a href="#">Jackats</a></li>
+                                <li><a href="#">Somethings </a></li>
+                            </ul>
+                        </div>
+                        <!-- inner.// -->
+                    </div>
+                </article>
+                <!-- filter-group  .// -->
+                <article class="filter-group">
+                    <h6 class="title">
+                        <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_2"> Brands </a>
+                    </h6>
+                    <div class="filter-content collapse show" id="collapse_2">
+                        <div class="inner">
+                            <label class="custom-control custom-checkbox">
+							<input type="checkbox" checked="" class="custom-control-input">
+							<div class="custom-control-label">Adidas  
+								<b class="badge badge-pill badge-light float-right">120</b>  </div>
+							</label>
+                            <label class="custom-control custom-checkbox">
+							<input type="checkbox" checked="" class="custom-control-input">
+							<div class="custom-control-label">Nike 
+								<b class="badge badge-pill badge-light float-right">15</b>  </div>
+							</label>
+                            <label class="custom-control custom-checkbox">
+							<input type="checkbox" checked="" class="custom-control-input">
+							<div class="custom-control-label">The Noth Face 
+								<b class="badge badge-pill badge-light float-right">35</b> </div>
+							</label>
+                            <label class="custom-control custom-checkbox">
+							<input type="checkbox" checked="" class="custom-control-input">
+							<div class="custom-control-label">The cat 
+								<b class="badge badge-pill badge-light float-right">89</b> </div>
+							</label>
+                            <label class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input">
+							<div class="custom-control-label">Honda 
+								<b class="badge badge-pill badge-light float-right">30</b>  </div>
+							</label>
+                        </div>
+                        <!-- inner.// -->
+                    </div>
+                </article>
+                <!-- filter-group .// -->
+                <article class="filter-group">
+                    <h6 class="title">
+                        <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_3"> Price range </a>
+                    </h6>
+                    <div class="filter-content collapse show" id="collapse_3">
+                        <div class="inner">
+                            <input type="range" class="custom-range" min="0" max="100" name="">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Min</label>
+                                    <input class="form-control" placeholder="$0" type="number">
+                                </div>
+                                <div class="form-group text-right col-md-6">
+                                    <label>Max</label>
+                                    <input class="form-control" placeholder="$1,0000" type="number">
+                                </div>
+                            </div>
+                            <!-- form-row.// -->
+                            <button class="btn btn-block btn-primary">Apply</button>
+                        </div>
+                        <!-- inner.// -->
+                    </div>
+                </article>
+                <!-- filter-group .// -->
+                <article class="filter-group">
+                    <h6 class="title">
+                        <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_4"> Sizes </a>
+                    </h6>
+                    <div class="filter-content collapse show" id="collapse_4">
+                        <div class="inner">
+                            <label class="checkbox-btn">
+								<input type="checkbox">
+								<span class="btn btn-light"> XS </span>
+							</label>
+
+                            <label class="checkbox-btn">
+								<input type="checkbox">
+								<span class="btn btn-light"> SM </span>
+							</label>
+
+                            <label class="checkbox-btn">
+								<input type="checkbox">
+								<span class="btn btn-light"> LG </span>
+							</label>
+
+                            <label class="checkbox-btn">
+								<input type="checkbox">
+								<span class="btn btn-light"> XXL </span>
+							</label>
+                        </div>
+                        <!-- inner.// -->
+                    </div>
+                </article>
+                <!-- filter-group .// -->
+                <article class="filter-group">
+                    <h6 class="title">
+                        <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_5"> Condition </a>
+                    </h6>
+                    <div class="filter-content collapse show" id="collapse_5">
+                        <div class="inner">
+                            <label class="custom-control custom-radio">
+							<input type="radio" name="myfilter_radio" checked="" class="custom-control-input">
+							<div class="custom-control-label">Any condition</div>
+							</label>
+
+                            <label class="custom-control custom-radio">
+							<input type="radio" name="myfilter_radio" class="custom-control-input">
+							<div class="custom-control-label">Brand new </div>
+							</label>
+
+                            <label class="custom-control custom-radio">
+							<input type="radio" name="myfilter_radio" class="custom-control-input">
+							<div class="custom-control-label">Used items</div>
+							</label>
+
+                            <label class="custom-control custom-radio">
+							<input type="radio" name="myfilter_radio" class="custom-control-input">
+							<div class="custom-control-label">Very old</div>
+							</label>
+                        </div>
+                        <!-- inner.// -->
+                    </div>
+                </article>
+                <!-- filter-group .// -->
+
+            </aside>
+            <!-- Side Type col.// -->
+
+            <main class="col-md-8">
+
+                <header class="mb-3">
+                    <div class="form-inline">
+                        <select class="mr-2 form-control">
+								<option>Latest items</option>
+								<!-- <option>Trending</option>
+								<option>Most Popular</option>
+								<option>Cheapest</option> -->
+							</select>
+                        <div class="btn-group">
+                            <a href="page-listing-grid.html" class="btn btn-light" data-toggle="tooltip" title="" data-original-title="List view">
+                                <i class="fa fa-bars"></i></a>
+                            <a href="page-listing-large.html" class="btn btn-light active" data-toggle="tooltip" title="" data-original-title="Grid view">
+                                <i class="fa fa-th"></i></a>
+                        </div>
+                    </div>
+                </header>
+                <!-- sect-heading -->
+
+                {% paginate 5 ds_shop %} {% for shop in ds_shop %}
+                <div class="col-md-6">
+                    <figure class="card card-product-grid">
+                        <div class="img-wrap">
+                            <span class="text-white badge bg-{{shop.label_color|lower}}"> {{shop.label}} </span>
+                            <img src="{{shop.get_thumb_img_url}}">
+                        </div>
+                        <!-- img-wrap.// -->
+                        <figcaption class="info-wrap">
+                            <a href="#" class="title mb-2">{{shop.title}}</a>
+                            <div class="price-wrap">
+                                <span class="price">{{shop.price}}</span>
+                                <small class="text-muted">/per item</small>
+                            </div>
+                            <!-- price-wrap.// -->
+
+                            <!-- <p class="mb-2"> 2 Pieces <small class="text-muted">(Min Order)</small></!-->
+
+                            <!-- <p class="text-muted ">Guangzhou Yichuang Electronic Co</p> <hr>-->
+
+                            <p class="mb-3">
+                                <span class="tag">
+								{% if verified %}<i class="fa fa-check"></i> Verified</span> {% else %} {% endif %}
+                            </p>
+
+                            <!-- <label class="custom-control mb-3 custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input">
+                                    <div class="custom-control-label">Add to compare
+                                    </div>
+                            </label> -->
+
+                            <a href="#" class="btn btn-outline-primary"> <i class="fa fa-search-plus"></i> More </a>
+
+                        </figcaption>
+                    </figure>
+                </div>
+                <!-- product col.// -->
+                {% empty %}
+                <div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no Product are here !</div>
+
+                {% endfor %}
+                <!-- pagination  -->
+                <div class="c-pagination">
+                    {% show_pages %}
+                    <br>
+                    <span class="text-primary"> {% show_pageitems %}</span>
+                </div>
+                <!-- pagination  -->
+
+
+            </main>
+            <!-- col.// -->
+
+        </div>
+
+    </div>
+    <!-- container .//  -->
+</section>
+
+
+{% include 'shop\script.html' %} {% endblock %}

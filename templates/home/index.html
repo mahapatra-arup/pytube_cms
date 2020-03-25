@@ -1,0 +1,42 @@
+{% extends 'shared/layout.html' %}
+ {% load home_tags %}
+
+ 
+{% block left_sidebar_widget %}
+   <!--load Notice-->
+  
+  
+   {% load_document %}
+  
+   
+
+   <!--load weather-->
+   {% load_weather %}
+{% endblock %}
+
+{% block content %}
+    <!--load Slider-->
+    {% load_slider %}
+
+    {% load_service %} 
+
+    {% load_client %}
+
+    {% load_testimonial %}
+
+    <!--load content-->
+    {% load_content %}
+    
+{% endblock  %}
+
+
+{% block right_sidebar_widget %}
+   <!--load Notice-->
+   {% load_notice %}
+
+   <!--load Notice-->
+   {% load_event %}
+
+     <!--load Notice-->
+   {% load_post %}
+{% endblock %}

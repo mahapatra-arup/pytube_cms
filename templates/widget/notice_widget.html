@@ -1,0 +1,37 @@
+	 {% comment %}
+     ---------------------------------------------
+     # tag :: home-->templatetags-->home_tags-->load_notice() 
+     -----------------------------------------
+    {% endcomment %}
+
+{% if term_data.is_active %} 
+   <!-- NOTICES WIDGET : begin -->
+        <div class="card widget notices-widget">
+            <div class="widget-inner">
+                <h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-bullhorn"></i> Notices</h3>
+                <div class="widget-content">
+                    <ul class="notice-list">
+                 
+                              {% for notice in widget_notice %}
+
+                                  <!-- NOTICE : begin -->
+                                    <li class="notice">
+                                        <div class="notice-inner">
+                                            <h4 class="notice-title"><a href="{{ notice.get_document_url|default_if_none:'#' }}" target="_blank" class=""><i class="fa fa-file-pdf-o"></i>&nbsp;{{notice.title}}</a></h4>
+                                            <span class="notice-date">{{ notice.updated_on }}</span>
+                                        </div>
+                                    </li>
+                                    <!-- NOTICE : end -->
+
+                              {% empty %}
+                               <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Notices are here !</div>
+                              {% endfor %}
+                     
+                        
+                    </ul>
+                    {% comment %} <p class="show-all-btn"><a href="/post/notice">See All Notices</a></p> {% endcomment %}
+                </div>
+            </div>
+        </div>
+<!-- NOTICES WIDGET : end -->
+{% endif %}  

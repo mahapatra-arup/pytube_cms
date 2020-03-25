@@ -1,0 +1,130 @@
+{% extends 'shared/layout.html' %} {% load paginate %} {% load post_tags %} {% block content %}
+<!-- POST LIST PAGE : begin -->
+<div class="post-page post-list-page">
+    {% if ds_posts %} {% paginate 5 ds_posts %} {% for post in ds_posts %}
+    <!-- POST : begin -->
+    <article class="post">
+        <div class="post-inner c-content-box m-no-padding">
+
+            <!-- POST IMAGE : begin -->
+            <div class="post-image">
+                <a href="{% url 'post_detail' post_slug=post.slug %}"><img src="{{post.get_image_url|default_if_none:'#'}}" alt=""></a>
+            </div>
+            <!-- POST IMAGE : end -->
+
+            <!-- POST CORE : begin -->
+            <div class="post-core">
+
+                <!-- POST TITLE : begin -->
+                <h2 class="post-title"><a href="{% url 'post_detail' post_slug=post.slug %}">{{post.title}}</a></h2>
+                <!-- POST TITLE : end -->
+
+                <!-- POST CONTENT : begin -->
+                <div class="post-content">
+                    <div class="post-content-inner">
+                        <p> {{ post.content|safe|truncatewords_html:50 }}</p>
+                    </div>
+                </div>
+                <!-- POST CONTENT : end -->
+
+            </div>
+            <!-- POST CORE : end -->
+
+            <!-- POST FOOTER : begin -->
+            <div class="post-footer">
+                <div class="post-footer-inner">
+
+                    <!-- POST INFO : begin -->
+                    <div class="post-info">
+                        <i class="ico tp tp-clock2"></i>
+
+                        <!-- POST DATE : begin -->
+                        <span class="post-date">
+										{{ post.updated_on|date:"F d, Y" }} <a href="{% url 'selected_category' menu_slug=menu_name_slug category_slug=post.category.slug  %}">&nbsp;<i class="fa fa-list"></i>&nbsp;{{ post.category }}</a>
+									</span>
+                        <!-- POST DATE : end -->
+
+                    </div>
+                    <!-- POST INFO : end -->
+
+                </div>
+            </div>
+            <!-- POST FOOTER : end -->
+
+        </div>
+    </article>
+    <!-- POST : end -->
+    {% endfor %}
+
+    <!-- pagination  -->
+    <div class="c-pagination">
+        {% show_pages %}
+        <br> {% show_pageitems %}
+    </div>
+    <!-- pagination  -->
+    {% else %}
+    <div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no posts are here !</div>
+    {% endif %}
+
+</div>
+{% endblock %} {% block right_sidebar_widget %}
+
+<!-- categories starts here -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-list4"></i>Categories</h3>
+    </div>
+    <div class="card-body">
+        {% for category in categories_list %}
+        <h5 class="card-title"><a href="{% url 'selected_category' menu_slug=menu_name_slug category_slug=category.slug  %}">{{ category }} ({{ category|category_posts_count:menu_name_slug }})</a></h5>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- categories ends here -->
+
+<br>
+
+<!-- Archive starts here -->
+<div class="card widget events-widget">
+    <div class="widget-inner">
+        <h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-archive"></i>Archive</h3>
+        <div class="widget-content">
+            <ul class="arch">
+                {% get_archives as archives %}
+                <li class="event m-has-date">
+                    {% for archive in archives %}
+                    <!-- EVENT : begin -->
+                    <a href="{% url 'archive_posts' menu_slug=menu_name_slug year=archive|date:'Y' month=archive|date:'m'  %}" class="col-md-3">
+                        <div class="event-inner">
+                            <div title="{{ archive|date:" F Y " }}" class="event-date">
+                                <span class="event-month">{{ archive|date:"M" }}</span>
+                                <span class="event-day">{{ archive|date:"Y" }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- EVENT : end -->
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Archive ends here -->
+
+<!-- tags starts here -->
+<div class="card widget categories-widget">
+    <div class="widget-inner">
+        <h3 class="widget-title m-has-ico">
+            <i class="widget-ico tp tp-tag"></i>Tags</h3>
+        <div class="widget-content">
+
+            {% for tag in tags_list %}
+            <a href="{% url 'selected_tag' menu_slug=menu_name_slug tag_slug=tag.slug %}"><i class="fa fa-tag"></i> {{ tag }}</a> {% endfor %}
+
+        </div>
+    </div>
+</div>
+<!-- tags ends here -->
+
+{% endblock %}

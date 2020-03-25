@@ -1,0 +1,32 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+
+<!-- GALLERY DETAIL PAGE : begin -->
+        <div class="gallery-detail-page gallery-page">
+
+            <!-- GALLERY : begin -->
+            <div class="c-gallery">
+               <ul class="gallery-images m-layout-masonry m-4-columns">
+                    {% if ds_posts_detail %}
+                            {% for postphoto in ds_posts_detail.photos.all %}
+                                <!-- GALLERY IMAGE : begin -->
+                                <li class="gallery-image">
+                                    <a href="#" class="lightbox" title="{{postphoto.name}}">
+                                        <img src="{{postphoto.get_image_url|default_if_none:'#'}}" alt="{{postphoto.name}}">
+                                    </a>
+                                </li>
+                                <!-- GALLERY IMAGE : end -->
+                            {% endfor %}
+                    {% else %}
+                            <h2 align="center" class="fa fa-warning">There are no Gallery are here !</h2>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- GALLERY : end -->
+
+        </div>
+        <!-- GALLERY DETAIL PAGE : begin -->
+{% endblock %}
+
+

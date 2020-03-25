@@ -1,0 +1,30 @@
+{% load filter_utils %}
+
+{% comment %}
+---------------------------------------------
+# tag :: home-->templatetags-->home_tags-->load_weather() 
+-----------------------------------------
+{% endcomment %}
+
+{% if term_data.is_active %}
+<!-- Weather WIDGET : begin -->
+<div class="card" >
+  <div class="card-header"> <h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-cloud-rain"></i>Weather</h3></div>
+  <div class="card-body" style="padding:0px!important">
+    {% for weather in widget_weather %}
+
+        <!-- weather : begin -->
+            <div>
+             {{weather.content|safe}}
+             </div>
+        <!-- weather : end -->
+        
+    {% empty %}
+    <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Weather Informations are here !</div>
+    {% endfor %}
+               
+       
+   </div>
+</div>
+<!-- WEATHER WIDGET : end -->
+{% endif %}  
