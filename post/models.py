@@ -8,9 +8,13 @@ from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
 from tinymce import HTMLField
 from page.models  import Menu
+from django.contrib.auth import get_user_model
 
-# Create your models here.
+#3rd party modules
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
 
+User = get_user_model()
 
 STATUS_CHOICE = (
     ('Drafted', 'Drafted'),
@@ -191,8 +195,6 @@ class Post(models.Model):
     def get_document_url(self):
          if self.document_file and hasattr(self.document_file, 'url'):
           return self.document_file.url  
-   
-       
 
 #global method----------------->
 def create_slug(tempslug):
@@ -204,6 +206,35 @@ def create_slug(tempslug):
             tempslug = tempslug + '-' + str(slugcount)
         except ObjectDoesNotExist:
             return tempslug
+
+   
+class Comments(models.Model):
+    post=models.ForeignKey(Post,on_delete=models.CASCADE,related_name='rel_post_comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    content= models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateField(auto_now=True)
+    approved = models.BooleanField(default=False)
+    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.content, self.user)
+
+    def get_children(self):
+            return self.comments_set.all()
+
+    def has_children(self):
+            if self.get_children():
+                return True
+            return False
+    class Meta:
+        ordering = ['-updated_on']
+        # db_table = "Comment"
+        verbose_name = 'Comments'
+        verbose_name_plural = 'Comments'
+
+
+
 
 
   

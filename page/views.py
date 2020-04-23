@@ -9,6 +9,9 @@ from page.models import Contact_Us, Menu
 #forms 
 from .forms import ContactUsForm
 
+#Messgee show
+from django.contrib import messages
+
 
 #Serach View------------------------------>
 class SearchResultsView(ListView):
@@ -22,7 +25,7 @@ class SearchResultsView(ListView):
         if self.query is None:
             self.query=""
             
-        object_list = Post.objects.filter(Q(title__icontains=self.query)|Q(content__icontains=self.query)|
+        object_list = self.model.objects.filter(Q(title__icontains=self.query)|Q(content__icontains=self.query)|
                Q(meta_description__icontains=self.query) | Q(keywords__icontains=self.query)|
                Q(slug__icontains=self.query) | Q(created_on__icontains=self.query)|
                Q(updated_on__icontains=self.query) | 
@@ -54,12 +57,29 @@ class SearchResultsView(ListView):
 
 # Create your views here.
 class ContactUsView(FormView):
-    form_class  = ContactUsForm
     template_name = 'page/contact_us.html'
+    
+    #Custom var
+    form_class  = ContactUsForm
+    name_of_slug="menu_slug"
 
     def get(self, request, *args, **kwargs):
         form  = self.form_class()
-        context = {'form': form}
+
+        #Menu Model Class return use By slug
+        self.menu = get_object_or_404(Menu, slug=self.kwargs.get(self.name_of_slug))
+
+        context = {'form': form,
+
+        "menu_name_slug": self.menu.slug,
+        "description": self.menu.title ,
+        "title": self.menu.title,
+        "keywords": self.menu.title,
+        "author": development.BLOG_AUTHOR,
+        "page_title":self.menu.title,
+        "breadcrumb":self.menu.title,
+        }
+
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -68,15 +88,19 @@ class ContactUsView(FormView):
         if form.is_valid():
             #save
             self.save_data(form.cleaned_data)
+            # (a) using the add_message method, 
+            messages.add_message(request, messages.INFO ,'Message Send Successfull',extra_tags='Contact Us', fail_silently=True)
+
             #mail send
             self.send_mail(form.cleaned_data)
 
             #new instance
-            form = self.form_class()
+            form = ContactUsForm()
             return render(request, self.template_name, {'form': form})
 
         return render(request, self.template_name, {'form': form})
 
+    #Method
     def save_data(self, valid_data):
         contact=Contact_Us()
         contact.name=valid_data['name']
@@ -85,8 +109,6 @@ class ContactUsView(FormView):
         contact.content=valid_data['content']
         contact.is_read=False
         contact.save()
-        
-
     def send_mail(self, valid_data):
         # Send mail logic
         print(valid_data)

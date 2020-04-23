@@ -1,0 +1,69 @@
+<!-- Tittle -->
+<hr>
+<span class="widget-title-style w3-text-blue"><i class="fa fa-comments"></i>&nbsp;Comments : </span>
+<div class="w3-red seprator"></div>
+
+<!-- comment list -->
+<div id="accordion">
+
+  {% for comment in ds_posts_detail.rel_post_comments.all %}
+  {% if comment.parent is None and comment.approved %}
+  <div class="card">
+    <div class="card-header">
+
+      <div class="col-md-2 text-center w3-text-deep-orange w3-card-2 w3-round-xxlarge img-thumbnail">
+        <i class="fa fa-user"></i>
+        {{comment.user}}
+      </div>
+
+      <h6 class="mb-0">
+        &nbsp;{{comment.content|safe}}
+
+        {% if comment.get_children %}
+        <button class="float-right btn btn-link collapsed" data-toggle="collapse" data-target="#cm_{{comment.id}}"
+          aria-expanded="false">
+          <i class="fa fa-arrow-down"></i>
+        </button>
+        {% endif %}
+      </h6>
+
+      <!-- For replay Comment :begin -->
+      <div>
+        <button type="submit" class="btn btn-primary w3-small float-right" data-toggle="collapse"
+          data-target="#child_{{comment.id}}" aria-expanded="false">Replay</button>
+
+
+        <div class="collapse " id="child_{{comment.id}}">
+          <div class="col-md  card card-body">
+            {% include "includes/comment_form.html" with comment=comment %}
+          </div>
+        </div>
+      </div>
+      <!-- For replay Comment :End -->
+    </div>
+
+    <div id="cm_{{comment.id}}" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+
+
+        <!-- Child Comment :begin-->
+        {% include "includes/comment_sub.html" with comment=comment %}
+        <!-- Child Comment :End-->
+
+      </div>
+    </div>
+
+  </div>
+  <br>
+  {% endif %}
+
+  {% empty %}
+  <div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no Comments are
+    here !</div>
+  {% endfor %}
+
+</div>
+
+
+
+{% include "includes/comment_form.html" %}

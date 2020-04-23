@@ -55,7 +55,7 @@
 		{% endblock %}
 	</head>
 	<body>
-
+	<!-- Message show : -->
 	{% include "includes/toast_message.html" %}
 
 		<!-- HEADER : begin -->
@@ -107,6 +107,20 @@
 							<!-- HEADER TOOLS : begin -->
 							<div class="header-tools">
 
+								<!-- USER : Log In / Registration :begin-->
+								<div class="header-search">
+									<a href="/admin/pt/" target="_blank" class="submit-btn w3-padding w3-round">
+										<i class="ico-open tp tp-lock"></i>
+										LogIn
+									</a>
+									&nbsp;
+									<a href="/admin/pt/" target="_blank" class="submit-btn w3-padding w3-round">
+										<i class="ico-open tp tp-rocket"></i>
+										Registration
+									</a>
+								</div>
+								<!-- USER : Log In / Registration :end -->
+
 								<!-- HEADER SEARCH : begin -->
 								<div class="header-search">
 									<form method="get" action="{% url 'search_results' %}"  class="c-search-form">
@@ -127,6 +141,7 @@
 								</button>
 								<!-- HEADER GMAP SWITCHER : end -->
 
+							
 							</div>
 							<!-- HEADER TOOLS : end -->
 

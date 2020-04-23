@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Post, Category, Tags,Term,Gal_Image
+from .models import Post, Category, Tags,Term,Gal_Image,Comments
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 import csv
@@ -109,6 +109,12 @@ class PostAdmin(admin.ModelAdmin,ExportCsvMixin):
     #menu name view
     def menu_name(self,obj):
         return obj.menu.title
+
+@admin.register(Comments)
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ('user','approved', 'content','post','updated_on','has_children','parent',)
+    list_editable = ['approved',]
+    pass
 
 
 #Notice--------------------------------------->

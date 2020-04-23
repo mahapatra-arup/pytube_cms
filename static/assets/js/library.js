@@ -41,68 +41,68 @@
 		AJAX FORM
 	------------------------------------------------------------------------- */
 
-	if ( ! $.fn.lsvrAjaxForm ) {
-		$.fn.lsvrAjaxForm = function(){
-		// REQUIRED PLUGINS
-		if ( $.fn.lsvrIsFormValid ) {
+	// if ( ! $.fn.lsvrAjaxForm ) {
+	// 	$.fn.lsvrAjaxForm = function(){
+	// 	// REQUIRED PLUGINS
+	// 	if ( $.fn.lsvrIsFormValid ) {
 
-			var form = $(this),
-				submitBtn = form.find( '.submit-btn' );
+	// 		var form = $(this),
+	// 			submitBtn = form.find( '.submit-btn' );
 
-			form.submit(function(e){
-				e.preventDefault();
+	// 		form.submit(function(e){
+	// 			e.preventDefault();
 
-				if ( ! submitBtn.hasClass( 'm-loading' ) ) {
+	// 			if ( ! submitBtn.hasClass( 'm-loading' ) ) {
 
-					// CLEAN OLD MESSAGES
-					form.find( '.c-alert-message.m-success, .c-alert-message.m-phpvalidation-error' ).slideUp( 300, function(){
-						$(this).remove();
-					});
+	// 				// CLEAN OLD MESSAGES
+	// 				form.find( '.c-alert-message.m-success, .c-alert-message.m-phpvalidation-error' ).slideUp( 300, function(){
+	// 					$(this).remove();
+	// 				});
 
-					// FORM NOT VALID
-					if ( ! form.lsvrIsFormValid() ) {
-						form.find( 'p.c-alert-message.m-warning.m-validation-error' ).slideDown(300);
-						return false;
-					}
-					// FORM VALID
-					else {
+	// 				// FORM NOT VALID
+	// 				if ( ! form.lsvrIsFormValid() ) {
+	// 					form.find( 'p.c-alert-message.m-warning.m-validation-error' ).slideDown(300);
+	// 					return false;
+	// 				}
+	// 				// FORM VALID
+	// 				else {
 
-						submitBtn.addClass( 'm-loading' ).attr( 'data-label', submitBtn.text() ).text( submitBtn.data( 'loading-label' ) );
+	// 					submitBtn.addClass( 'm-loading' ).attr( 'data-label', submitBtn.text() ).text( submitBtn.data( 'loading-label' ) );
 
-						// AJAX REQUEST
-						$.ajax({
-							type: 'POST',
-							url: form.attr( 'action' ),
-							data: form.serialize(),
-							success: function( data ){
+	// 					// AJAX REQUEST
+	// 					$.ajax({
+	// 						type: 'POST',
+	// 						url: form.attr( 'action' ),
+	// 						data: form.serialize(),
+	// 						success: function( data ){
 
-								form.find( '.c-alert-message.m-validation-error' ).hide();
-								form.prepend( data );
-								form.find( '.c-alert-message.m-success, .c-alert-message.m-phpvalidation-error' ).slideDown(300);
-								submitBtn.removeClass( 'm-loading' ).text( submitBtn.attr( 'data-label' ) );
+	// 							form.find( '.c-alert-message.m-validation-error' ).hide();
+	// 							form.prepend( data );
+	// 							form.find( '.c-alert-message.m-success, .c-alert-message.m-phpvalidation-error' ).slideDown(300);
+	// 							submitBtn.removeClass( 'm-loading' ).text( submitBtn.attr( 'data-label' ) );
 
-								// RESET ALL INPUTS
-								if ( data.indexOf( 'success' ) > 0 ) {
-									form.find( 'input, textarea' ).each( function() {
-										$(this).val( '' );
-									});
-								}
+	// 							// RESET ALL INPUTS
+	// 							if ( data.indexOf( 'success' ) > 0 ) {
+	// 								form.find( 'input, textarea' ).each( function() {
+	// 									$(this).val( '' );
+	// 								});
+	// 							}
 
-							},
-							error: function(){
-								form.find( '.c-alert-message.m-validation-error' ).slideUp(300);
-								form.find( '.c-alert-message.m-request-error' ).slideDown(300);
-								submitBtn.removeClass( 'm-loading' ).text( submitBtn.attr( 'data-label' ) );
-							}
-						});
+	// 						},
+	// 						error: function(){
+	// 							form.find( '.c-alert-message.m-validation-error' ).slideUp(300);
+	// 							form.find( '.c-alert-message.m-request-error' ).slideDown(300);
+	// 							submitBtn.removeClass( 'm-loading' ).text( submitBtn.attr( 'data-label' ) );
+	// 						}
+	// 					});
 
-					}
+	// 				}
 
-				}
-			});
+	// 			}
+	// 		});
 
-		}};
-	}
+	// 	}};
+	// }
 
 	/* -------------------------------------------------------------------------
 		ALERT MESSAGE
@@ -511,79 +511,6 @@
 		};
 	}
 
-	/* -------------------------------------------------------------------------
-		MAILCHIMP SUBSCRIBE FORM
-	------------------------------------------------------------------------- */
-
-	if ( ! $.fn.lsvrMailchimpSubscribeForm ) {
-		$.fn.lsvrMailchimpSubscribeForm = function(){
-		// REQUIRED PLUGINS
-		if ( $.fn.lsvrIsFormValid ) {
-
-			var form = $(this).find( 'form' ),
-				submitBtn = form.find( '.submit-btn' );
-
-			form.submit(function(e){
-				e.preventDefault();
-				if ( ! form.hasClass( 'm-loading' ) ) {
-
-					// FORM IS VALID
-					if ( form.lsvrIsFormValid() ) {
-
-						form.find( 'p.c-alert-message.m-warning.m-validation-error' ).slideUp(300);
-						form.addClass( 'm-loading' );
-						//submitBtn.attr( 'data-label', submitBtn.text() ).text( submitBtn.data( 'loading-label' ) );
-
-						// SEND AJAX REQUEST
-						$.ajax({
-							type: form.attr( 'method' ),
-							url: form.attr( 'action' ),
-							data: form.serialize(),
-							cache : false,
-							dataType : 'json',
-							contentType: "application/json; charset=utf-8",
-							// WAIT FOR RESPONSE
-							success: function( data ){
-
-								if ( data.result === 'success' ) {
-									form.find( '.c-alert-message' ).hide();
-									form.find( '.c-alert-message.m-success' ).append( '<br>' + data.msg ).slideDown(300);
-									form.find( '.form-fields' ).slideUp(300);
-								}
-								else {
-									form.find( '.c-alert-message.m-validation-error' ).slideUp(300);
-									form.find( '.c-alert-message.m-request-error span' ).text( data.msg );
-									form.find( '.c-alert-message.m-request-error' ).slideDown(300);
-								}
-
-								form.removeClass( 'm-loading' );
-								//submitBtn.text( submitBtn.attr( 'data-label' ) );
-
-							},
-							error: function( data ){
-
-								form.attr( 'data-error-msg', data.msg );
-								form.find( '.m-alert-message.m-validation-error' ).slideUp(300);
-								form.find( '.m-alert-message.m-request-error' ).slideDown(300);
-								form.removeClass( 'loading' );
-								//submitBtn.text( submitBtn.attr( 'data-label' ) );
-
-							}
-						});
-
-					}
-
-					//  FORM IS INVALID
-					else {
-						form.find( 'p.c-alert-message.m-warning.m-validation-error' ).slideDown(300);
-						return false;
-					}
-
-				}
-			});
-
-		}};
-	}
 
 	/* -------------------------------------------------------------------------
 		MEDIA QUERY BREAKPOINT

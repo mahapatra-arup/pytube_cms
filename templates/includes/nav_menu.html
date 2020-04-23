@@ -1,7 +1,7 @@
 {% load recurse %}
 
 <nav class="{{css_class}}">
-{% recurse menu.menu_set.all|dictsort:"lvl" with menu as menu %}
+{% recurse menu.menu_set.all|dictsort:"tree_id" with menu as menu %}
         <ul>
           {% loop %}
             <li>

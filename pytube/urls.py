@@ -29,12 +29,13 @@ admin.site.index_title = "Welcome to Pytube CMS Portal"
 
 #Url-patterns Design
 urlpatterns = [
+     path('newsletter/pt/', include('newsletter.urls')),
     #admin App
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/pt/', admin.site.urls),
 
-    path('newsletter/', include('newsletter.urls')),
+   
 
 
     #Home Index App

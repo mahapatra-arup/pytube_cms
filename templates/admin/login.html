@@ -1,23 +1,45 @@
-{% extends "admin/base_site.html" %} {% load static i18n %} {% block bodyclass %}{{ block.super }} login{% endblock %} {% block usertools %}{% endblock %} {% block nav-global %}{% endblock %} {% block content_title %}{% endblock %} {% block extrastyle
-%} {{ block.super }}
-<link rel="stylesheet" type="text/css" href="{% static 'admin/css/login.css' %}" /> {% block content %}
+{% extends "admin/base_site.html" %} 
+{% load static i18n %} 
+{% load home_tags %}
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+ {% block usertools %}{% endblock %} 
+{% block nav-global %}{% endblock %} 
+{% block content_title %}{% endblock %}
+{% block extrastyle %} {{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/login.css' %}" /> 
+{% endblock %}
 
+{% block content %}
+    <!-- Logo -->
+    <img src="{% static 'admin/css/icons/icon.png' %}" width="110px!important" height="50px!important" style="display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;" />
+ <hr>
+
+<!-- Simple Messege show -->
 <ul class="messagelist">
-    <li class="info">Use "<strong>admin</strong>" for username and password</li>
+    <li class="info">Use "<strong>admin</strong>" for username and password "<strong>admin@123</strong>"</li>
 </ul>
 
-{% if form.errors and not form.non_field_errors %}
-<p class="errornote">
-    {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
-</p>
-{% endif %} {% if form.non_field_errors %} {% for error in form.non_field_errors %}
-<p class="errornote">
-    {{ error }}
-</p>
-{% endfor %} {% endif %}
-
+<div>
+    <!-- error List -->
+    {% if form.errors and not form.non_field_errors %}
+    <p class="errornote">
+        {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+    </p>
+    {% endif %} {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+    <p class="errornote">
+        {{ error }}
+    </p>
+    {% endfor %} {% endif %}
+</div>
 
 <div id="content-main">
+
+  
+
+    <!-- Lig in Form -->
     <form action="{{ app_path }}" method="post" id="login-form">
         {% csrf_token %}
         <div class="form-row">
@@ -41,4 +63,6 @@
         document.getElementById('id_username').focus()
     </script>
 </div>
+
+
 {% endblock %}

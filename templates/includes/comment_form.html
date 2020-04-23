@@ -1,0 +1,20 @@
+{% load crispy_forms_tags %}
+<div class="">
+
+    <form method="post">
+        {% csrf_token %}
+
+
+        <div class="form-row w3-animate-zoom w3-border-brown ">
+            <div class="form-group col-md-12 mb-0">
+                {{ form.content|as_crispy_field }}
+
+                {% if comment.id %}
+                <input type="hidden" name="parent_id" id="parent_id" value="{{ comment.id }}">
+                {% endif %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-danger float-right"><i class="fa fa-comment"></i> Commment</button>
+    </form>
+</div>

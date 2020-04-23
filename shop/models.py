@@ -7,7 +7,6 @@ from django.shortcuts import reverse
 
 from django.db.models.signals import pre_save
 from pytube.utils.ptutils import generate_unique_slug
-from versatileimagefield.fields import VersatileImageField
 
 
 LABEL_COLOR_CHOICES = (
@@ -49,9 +48,7 @@ class Item_Category(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     is_active = models.BooleanField(default=True)
-    background_image = VersatileImageField(
-        upload_to="shop/Item_Category", blank=True, null=True
-    )
+    background_image = models.ImageField(upload_to="shop/Item_Category", blank=True, null=True)
     background_image_alt = models.CharField(max_length=128, blank=True)
     parent= models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
 

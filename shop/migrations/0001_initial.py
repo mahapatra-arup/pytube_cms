@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import django_countries.fields
-import versatileimagefield.fields
 
 
 class Migration(migrations.Migration):
@@ -153,7 +152,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=250)),
                 ('slug', models.SlugField(max_length=255, unique=True)),
                 ('description', models.TextField(blank=True)),
-                ('background_image', versatileimagefield.fields.VersatileImageField(blank=True, null=True, upload_to='shop/Item_Category')),
+                ('background_image', models.ImageField(blank=True, null=True, upload_to='shop/Item_Category')),
                 ('background_image_alt', models.CharField(blank=True, max_length=128)),
                 ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='shop.Item_Category')),
             ],

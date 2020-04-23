@@ -1,15 +1,25 @@
 
-from django.shortcuts import get_list_or_404, get_object_or_404, render
-from post.models import Post,Category,Tags
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
+from post.models import Category, Comments, Post, Tags
 from django.views.generic import ListView, DetailView
 from django.db.models import Count
 import datetime
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+
+#decorator for login required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 #settings
 from pytube.settings import base,development
 from pytube.constant_fields import *
+
 from page.models import Menu  # menu Import
+
+#Form
+from .forms import CommentForm
+from django.contrib import messages
 
 #menuwise data
 def categories_tags_lists(menu_title):
@@ -69,6 +79,8 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     #Custom var
     name_of_slug="post_slug"
+    form=CommentForm()
+    success_url = "post_detail"#name of Post Details URL
 
     #system var Fixed
     template_name = 'post/post_detail.html'
@@ -94,12 +106,37 @@ class PostDetailView(DetailView):
             "author": author,
             "page_title":self.get_object().title,
             "breadcrumb":menu_detail.title+' / '+self.get_object().title,
-        })    
+        }) 
+        
+        #Comment form
+        context['form'] = self.form   
         return context
+
+    #comment save
+    @method_decorator(login_required) 
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        #For Child
+        self.parent_id = self.request.POST.get('parent_id')
+        
+        if form.is_valid():
+            post = self.get_object()
+            comment = form.save(commit=False)
+            comment.post= post
+            comment.user = request.user
+            if self.parent_id:
+               comment.parent_id=int(self.parent_id) #'parent_id' db Field Name
+            
+            comment.save()
+
+            messages.add_message(request, messages.INFO ,'Comment Post Successfull : waiting for approval',extra_tags='Comment', fail_silently=True)
+            return HttpResponseRedirect(reverse_lazy(self.success_url,args=
+            [post.slug]))
+
 #===============>
 
 #<===================
-#Notice View==
+#Notice View=
 class NoticeListView(ListView):
     #Custom var
     name_of_slug="menu_slug"

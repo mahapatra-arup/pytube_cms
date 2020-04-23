@@ -1,5 +1,6 @@
 {% extends 'shared/layout.html' %}
 
+
 {% block content %}
 <!-- POST DETAIL PAGE : begin -->
     <div class="post-page post-detail-page">
@@ -78,4 +79,7 @@
         
     </div>
     <!-- POST DETAIL PAGE : end -->
+
+    <!-- Comments Include -->
+    {% include 'includes/comment.html' %}
 {% endblock %}

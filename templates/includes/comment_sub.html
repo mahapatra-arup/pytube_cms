@@ -1,0 +1,51 @@
+<div class="">
+
+
+
+    {% for sub_comment in comment.get_children %}
+    {% if sub_comment.approved %}
+    <div class="container-fluid">
+        <div class="col-md-2 text-center w3-text-blue w3-card-2 w3-round-xxlarge img-thumbnail">
+            <i class="fa fa-user"></i>
+            {{sub_comment.user}}
+        </div>
+
+        <div class="col-md">
+            <h6><em>&nbsp; {{sub_comment.content|safe}}</em>
+                <button type="submit" class="btn btn-primary w3-small float-right" data-toggle="collapse"
+                    data-target="#sub_{{sub_comment.id}}" aria-expanded="false">Replay</button>
+            </h6>
+            <!-- replay form call  -->
+            <div class="collapse" id="sub_{{sub_comment.id}}">
+                <div class="col-md  card card-body">
+                    {% include "includes/comment_form.html" with comment=sub_comment %}
+                </div>
+            </div>
+
+
+            <!--sub_sub Child Comment :begin-->
+            {% if sub_comment.get_children %}
+            <hr />
+            <!-- Colleps  -->
+            <button class="float-right btn btn-link collapsed" data-toggle="collapse"
+                data-target="#sub_child_{{sub_comment.id}}" aria-expanded="false">
+                <i class="w3-text-red fa fa-arrow-down"></i>
+            </button>
+
+
+            <div id="sub_child_{{sub_comment.id}}" class="collapse">
+                {% include "includes/comment_sub.html" with comment=sub_comment %}
+            </div>
+            {% else %}
+            <hr />
+            {% endif %}
+            <!-- Child Comment :End-->
+
+        </div>
+    </div>
+    
+    {% endif %}
+    {% empty %}
+    {% endfor %}
+
+</div>

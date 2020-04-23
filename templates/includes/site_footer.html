@@ -1,199 +1,225 @@
 {% comment %}
 ------------------------------------
-# tag :: home-->templatetags-->home_tags-->load_site_footer() 
+# tag :: home-->templatetags-->home_tags-->load_site_footer()
 ---------------------------------
 {% endcomment %}
 
 <footer id="footer" class="m-has-bg">
 	<div class="footer-bg">
 		<div class="footer-inner">
-            {% if orgdetails %}
+			{% if orgdetails %}
 
-				<!-- FOOTER TOP : begin -->
-				<div class="footer-top">
-					<div class="c-container">
+			<!-- FOOTER TOP : begin -->
+			<div class="footer-top">
+				<div class="c-container">
 
-						<!-- BOTTOM PANEL : begin -->
-						<div id="bottom-panel">
-							<div class="bottom-panel-inner">
-								<div class="row">
+					<!-- BOTTOM PANEL : begin -->
+					<div id="bottom-panel">
+						<div class="bottom-panel-inner">
+							<div class="row">
 
-									<div class="widget-col col-md-3">
+								<div class="widget-col col-md-3">
 
-										<!-- DEFINITION importent link WIDGET : begin -->
-										<div class="widget definition-list-widget">
-											<hr class="c-separator m-transparent hidden-lg hidden-md">
-											<div class="widget-inner">
-												<h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-earth"></i>Useful Links</h3>
-												<div class="widget-content">
-													<dl>
-														{% for usefullinks in orgdetails.useful_link.all %}
-															<dt><a href="{{usefullinks.links}}">{{usefullinks.title}}</a></dt>
-															{% empty %}
-															{% comment %} if empty then execute thie poartision {% endcomment %}
-														{% endfor %}
-														
-													</dl>
-												</div>
+									<!-- DEFINITION importent link WIDGET : begin -->
+									<div class="widget definition-list-widget">
+										<hr class="c-separator m-transparent hidden-lg hidden-md">
+										<div class="widget-inner">
+											<h3 class="widget-title m-has-ico"><i
+													class="widget-ico tp tp-earth"></i>Useful Links</h3>
+											<div class="widget-content">
+												<dl>
+													{% for usefullinks in orgdetails.useful_link.all %}
+													<dt><a href="{{usefullinks.links}}">{{usefullinks.title}}</a></dt>
+													{% empty %}
+													{% comment %} if empty then execute thie poartision {% endcomment %}
+													{% endfor %}
+
+												</dl>
 											</div>
 										</div>
-										<!-- DEFINITION importent link WIDGET : end -->
-
 									</div>
-									
-									<div class="widget-col col-md-3">
-
-										<!-- DEFINITION LIST WIDGET : begin -->
-										<div class="widget definition-list-widget">
-											<hr class="c-separator m-transparent hidden-lg hidden-md">
-											<div class="widget-inner">
-												<h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-telephone"></i>Phone Numbers</h3>
-												<div class="widget-content">
-													<dl>
-														{% for contactno in orgdetails.contact_no.all %}
-												
-															<dt>{{contactno.name}}</dt>
-															<dd>{{contactno.ph}}</dd>
-															
-														{% empty %}
-															<dt>Contact No</dt>
-															<dd>Not Available!!</dd>
-														{% endfor %}
-													</dl>
-													{% comment %} <p class="show-all-btn"><a href="phone-numbers.html">See All Phone Numbers</a></p> {% endcomment %}
-												</div>
-											</div>
-										</div>
-										<!-- DEFINITION LIST WIDGET : end -->
-
-									</div>
-									
-									<div class="widget-col col-md-3">
-
-										<!-- TEXT WIDGET : begin -->
-										<div class="widget">
-											<hr class="c-separator m-transparent hidden-lg hidden-md">
-											<div class="widget-inner">
-												<h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-boat"></i>&nbsp;Address</h3>
-												<div class="widget-content">
-													<p>AT : {{orgdetails.at}}<br>PO : {{orgdetails.po}} <br>Dist : {{orgdetails.dist}}<br>
-													{{orgdetails.state}} ::: {{orgdetails.country}} ::: {{orgdetails.pin}}</p>
-
-													<p>Fax : {{orgdetails.fax}}<br>
-													Email : <a href="mailto:{{orgdetails.email}}">{{orgdetails.email}}</a></p>
-												</div>
-											</div>
-										</div>
-										<!-- TEXT WIDGET : end -->
-
-									</div>
-
-									<div class="widget-col col-md-3">
-
-										<!-- MAILCHIMP SUBSCRIBE WIDGET : begin -->
-										<!-- Please read the documentation to learn how to configure Mailchimp Subscribe widget -->
-										<div class="widget mailchimp-subscribe-widget">
-											<hr class="c-separator m-transparent hidden-lg hidden-md">
-											<div class="widget-inner">
-												<h3 class="widget-title m-has-ico"><i class="widget-ico tp tp-at-sign"></i>Join Our Newsletter</h3>
-												<div class="widget-content">
-				
-													<!-- Add your custom form URL into "action" attribute in following element -->
-													<form class="mailchimp-subscribe-form" enctype="multipart/form-data" method="post" action="/newsletter/newsletter_subscribe_request/subscribe/" >
-
-														<div class="subscribe-inner">
-
-															<div class="description">
-																<p>Join our newsletter to receive up to date news.</p>
-															</div>
-
-															<!-- VALIDATION ERROR MESSAGE : begin -->
-															<p class="c-alert-message m-warning m-validation-error" style="display: none;"><i class="ico fa fa-exclamation-circle"></i>
-															<span>Your email address is required.</span></p>
-															<!-- VALIDATION ERROR MESSAGE : end -->
-
-															<!-- SENDING REQUEST ERROR MESSAGE : begin -->
-															<p class="c-alert-message m-warning m-request-error" style="display: none;"><i class="ico fa fa-exclamation-circle"></i>
-															<span>There was a connection problem. Try again later.</span></p>
-															<!-- SENDING REQUEST ERROR MESSAGE : end -->
-
-															<!-- SUCCESS MESSAGE : begin -->
-															<p class="c-alert-message m-success" style="display: block;"><i class="ico fa fa-check-circle"></i>
-															<span><strong>Form sent successfully!</strong></span></p>
-															<!-- SUCCESS MESSAGE : end -->
-
-															<div class="form-fields">
-																{% csrf_token %}
-																<input type="text" placeholder="Your Email Address" type="email" name="email_field" required="" id="id_email_field" class="m-required m-email">
-																<button title="Subscribe" id="id_submit" name="submit" value="Subscribe" type="submit" class="submit-btn">
-																	<i class="fa fa-chevron-right"></i>
-																	<i class="fa fa-spinner fa-spin"></i>
-																</button>
-															</div>
-
-														</div>
-													</form>
-
-												</div>
-											</div>
-										</div>
-										
-										<!-- MAILCHIMP SUBSCRIBE WIDGET : end -->
-
-									</div>
+									<!-- DEFINITION importent link WIDGET : end -->
 
 								</div>
+
+								<div class="widget-col col-md-3">
+
+									<!-- DEFINITION LIST WIDGET : begin -->
+									<div class="widget definition-list-widget">
+										<hr class="c-separator m-transparent hidden-lg hidden-md">
+										<div class="widget-inner">
+											<h3 class="widget-title m-has-ico"><i
+													class="widget-ico tp tp-telephone"></i>Phone Numbers</h3>
+											<div class="widget-content">
+												<dl>
+													{% for contactno in orgdetails.contact_no.all %}
+
+													<dt>{{contactno.name}}</dt>
+													<dd>{{contactno.ph}}</dd>
+
+													{% empty %}
+													<dt>Contact No</dt>
+													<dd>Not Available!!</dd>
+													{% endfor %}
+												</dl>
+												{% comment %} <p class="show-all-btn"><a href="phone-numbers.html">See
+														All Phone Numbers</a></p> {% endcomment %}
+											</div>
+										</div>
+									</div>
+									<!-- DEFINITION LIST WIDGET : end -->
+
+								</div>
+
+								<div class="widget-col col-md-3">
+
+									<!-- TEXT WIDGET : begin -->
+									<div class="widget">
+										<hr class="c-separator m-transparent hidden-lg hidden-md">
+										<div class="widget-inner">
+											<h3 class="widget-title m-has-ico"><i
+													class="widget-ico tp tp-boat"></i>&nbsp;Address</h3>
+											<div class="widget-content">
+												<p>AT : {{orgdetails.at}}<br>PO : {{orgdetails.po}} <br>Dist :
+													{{orgdetails.dist}}<br>
+													{{orgdetails.state}} ::: {{orgdetails.country}} :::
+													{{orgdetails.pin}}</p>
+
+												<p>Fax : {{orgdetails.fax}}<br>
+													Email : <a
+														href="mailto:{{orgdetails.email}}">{{orgdetails.email}}</a></p>
+											</div>
+										</div>
+									</div>
+									<!-- TEXT WIDGET : end -->
+
+								</div>
+
+								<div class="widget-col col-md-3">
+
+									<!-- SUBSCRIBE WIDGET : begin -->
+									<!-- Please read the documentation to learn how to configure Mailchimp Subscribe widget -->
+									<div class="widget mailchimp-subscribe-widget">
+										<hr class="c-separator m-transparent hidden-lg hidden-md">
+										<div class="widget-inner">
+											<h3 class="widget-title m-has-ico"><i
+													class="widget-ico tp tp-at-sign"></i>Join Our Newsletter</h3>
+											<div class="widget-content">
+
+												<!-- Add your custom form URL into "action" attribute in following element -->
+
+												<div class="subscribe-inner">
+
+													<div class="description">
+														<p>Join our newsletter to receive up to date news.</p>
+													</div>
+
+													<!-- VALIDATION ERROR MESSAGE : begin -->
+													<p class="c-alert-message m-warning m-validation-error"
+														style="display: none;"><i
+															class="ico fa fa-exclamation-circle"></i>
+														<span>Your email address is required.</span></p>
+													<!-- VALIDATION ERROR MESSAGE : end -->
+
+													<!-- SENDING REQUEST ERROR MESSAGE : begin -->
+													<p class="c-alert-message m-warning m-request-error"
+														style="display: none;"><i
+															class="ico fa fa-exclamation-circle"></i>
+														<span>There was a connection problem. Try again
+															later.</span>
+													</p>
+													<!-- SENDING REQUEST ERROR MESSAGE : end -->
+
+													<!-- SUCCESS MESSAGE : begin -->
+													<p class="c-alert-message m-success" style="display: block;"><i
+															class="ico fa fa-check-circle"></i>
+														<span><strong>Form sent successfully!</strong></span></p>
+													<!-- SUCCESS MESSAGE : end -->
+
+													<div class="form-fields">
+														<form method="post" class="mailchimp-subscribe-form" enctype="multipart/form-data"	action="/newsletter/pt/pytube/subscribe/">
+
+															{% csrf_token %}
+
+															<input type="text" placeholder="Your Email Address" type="email" name="email_field" required=""	id="id_email_field" class="m-required m-email">
+													
+															<button id="id_submit" name="submit" value="Subscribe" type="submit" class="submit-btn">
+																<i class="fa fa-chevron-right"></i>
+																<i class="fa fa-spinner fa-spin"></i>
+															</button>
+
+														</form>
+														
+													</div>
+
+												</div>
+
+												<!-- endd subscribe -->
+
+											</div>
+										</div>
+									</div>
+
+									<!-- MAILCHIMP SUBSCRIBE WIDGET : end -->
+
+								</div>
+
 							</div>
 						</div>
-						<!-- BOTTOM PANEL : end -->
+					</div>
+					<!-- BOTTOM PANEL : end -->
+
+				</div>
+			</div>
+			<!-- FOOTER TOP : end -->
+
+			<!-- FOOTER BOTTOM : begin -->
+			<div class="footer-bottom">
+				<div class="footer-bottom-inner">
+					<div class="c-container">
+
+						<!-- FOOTER SOCIAL : begin -->
+						<!-- Here is the list of some popular social networks. There are more icons you can use, just refer to the documentation -->
+						<div class="footer-social">
+							<ul class="c-social-icons">
+
+								{% for socialdetails in orgdetails.social_details.all %}
+								<li class="{{socialdetails.css_class}}" title="{{socialdetails.name}}"><a
+										href="{{socialdetails.social_link}}"><i class="{{socialdetails.icon}}"></i></a>
+								</li>
+								{% empty %}
+								{% comment %} if empty then execute thie poartision {% endcomment %}
+								{% endfor %}
+
+							</ul>
+						</div>
+						<!-- FOOTER SOCIAL : end -->
+
+						<!-- FOOTER MENU : begin -->
+						<nav class="footer-menu">
+							<ul>
+								<li><a href="/">Home</a></li>
+								<li><a href="/admin/pt/" target="_blank">Admin LogIn</a></li>
+
+							</ul>
+						</nav>
+						<!-- FOOTER MENU : end -->
+
+						<!-- FOOTER TEXT : begin -->
+						<div class="footer-text">
+							<p>© 2020 Pytube. All Rights Reserved.<a href="http://pytube.net/"> || pytube.net</a></p>
+						</div>
+						<!-- FOOTER TEXT : end -->
 
 					</div>
 				</div>
-				<!-- FOOTER TOP : end -->
-
-				<!-- FOOTER BOTTOM : begin -->
-				<div class="footer-bottom">
-					<div class="footer-bottom-inner">
-						<div class="c-container">
-
-							<!-- FOOTER SOCIAL : begin -->
-							<!-- Here is the list of some popular social networks. There are more icons you can use, just refer to the documentation -->
-							<div class="footer-social">
-								<ul class="c-social-icons">
-								
-									{% for socialdetails in orgdetails.social_details.all %}
-										<li class="{{socialdetails.css_class}}" title="{{socialdetails.name}}"><a href="{{socialdetails.social_link}}"><i class="{{socialdetails.icon}}"></i></a></li>
-									{% empty %}
-									{% comment %} if empty then execute thie poartision {% endcomment %}
-									{% endfor %}
-									
-								</ul>
-							</div>
-							<!-- FOOTER SOCIAL : end -->
-
-							<!-- FOOTER MENU : begin -->
-							<nav class="footer-menu">
-								<ul>
-									<li><a href="/">Home</a></li>
-									<li><a href="/admin/pt/" target="_blank">LogIn</a></li>
-								</ul>
-							</nav>
-							<!-- FOOTER MENU : end -->
-
-							<!-- FOOTER TEXT : begin -->
-							<div class="footer-text">
-								<p>© 2020 Pytube. All Rights Reserved.<a href="http://pytube.net/"> || pytube.net</a></p>
-							</div>
-							<!-- FOOTER TEXT : end -->
-
-						</div>
-					</div>
-				</div>
-				<!-- FOOTER BOTTOM : end -->
+			</div>
+			<!-- FOOTER BOTTOM : end -->
 
 			{% else %}
-			  <div  class="alert alert-warning" role="alert" ><strong class="fa fa-warning"></strong> &nbsp;There are no Slider are here !</div>
-            {% endif %}
+			<div class="alert alert-warning" role="alert"><strong class="fa fa-warning"></strong> &nbsp;There are no
+				Slider are here !</div>
+			{% endif %}
 
 		</div>
 	</div>

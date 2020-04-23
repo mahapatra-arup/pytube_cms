@@ -22,5 +22,5 @@ urlpatterns = [
     #Search Result View
     path('search', SearchResultsView.as_view(), name='search_results'),
     path('page/<slug:menu_slug>', ContentPageView.as_view(), name='content_page'),
-    path('contact_us', ContactUsView.as_view(), name='contact_us'),
+    path('contact_us/<slug:menu_slug>', ContactUsView.as_view(), name='contact_us'),
 ]
